@@ -87,7 +87,7 @@ function main() {
     const armView = document.getElementById('outputARM');
     const cgView = document.getElementById('outputCG');
     const boxNames = getBoxNamesData(rawInputData, lang);
-    const rawData = addFFPadding([...boxNames]);
+    const rawData = addFFPadding([...boxNames], 9);
     const thumbData = extractOpcodes(boxNames, 2);
     const armData = extractOpcodes(boxNames, 4);
     rawDataView.value = getRawBoxNamesDisplay(rawData);
