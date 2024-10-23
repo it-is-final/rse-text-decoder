@@ -1,17 +1,23 @@
 import { substituteChar } from './character_maps.js';
 import { getCharacterMap } from './character_maps.js';
 
+function addFFPadding(rawBoxNames, targetLength) {
+    let output = rawBoxNames;
+    if (output.length % targetLength) {
+        const emptySlots = targetLength - (output.length % targetLength)
+        for (let i = 0; i < emptySlots; i++) {
+            output.push(0xFF);
+        }
+    }
+    return output;
+}
+
 function getBoxNamesData (rawInputData, lang) {
     const inputData = rawInputData.split('\n')
     const [charMap, reverseCharMap] = getCharacterMap(lang)
     let rawBoxNames = []
     for (const rawLine of inputData) {
-        if (rawBoxNames.length % 9) {
-            const emptySlots = 9 - (rawBoxNames.length % 9)
-            for (let i = 0; i < emptySlots; i++) {
-                rawBoxNames.push(0xFF);
-            }
-        }
+        addFFPadding(rawBoxNames, 9);
         let line = [...rawLine];
         if (line.length > 8) {
             alert("line is too long");
@@ -23,17 +29,6 @@ function getBoxNamesData (rawInputData, lang) {
         }
     }
     return rawBoxNames;
-}
-
-function convertToRaw(rawBoxNames) {
-    let rawData = [...rawBoxNames];
-    if (rawData.length % 9) {
-        const emptySlots = 9 - (rawData.length % 9)
-        for (let i = 0; i < emptySlots; i++) {
-            rawData.push(0xFF);
-        }
-    }
-    return rawData;
 }
 
 function getRawBoxNamesDisplay(rawData) {
@@ -69,10 +64,12 @@ function getCGDisplay(opcodes) {
     return output.join('\n')
 }
 
-function extractOpcodes(rawBoxNames, opcodeLength){
+function extractOpcodes(rawBoxNames, opcodeLength) {
+    let rawData = [...rawBoxNames];
+    addFFPadding(rawData, opcodeLength);
     let opcodes = [];
-    for (let i = 0; i < rawBoxNames.length; i += opcodeLength) {
-        const rawOpcode = rawBoxNames.slice(i, i + opcodeLength);
+    for (let i = 0; i < rawData.length; i += opcodeLength) {
+        const rawOpcode = rawData.slice(i, i + opcodeLength);
         let opcode;
         for (let i = 0; i < rawOpcode.length; i++) {
             opcode = (rawOpcode[i] << (i * 8)) | opcode;
@@ -90,7 +87,7 @@ function main() {
     const armView = document.getElementById('outputARM');
     const cgView = document.getElementById('outputCG');
     const boxNames = getBoxNamesData(rawInputData, lang);
-    const rawData = convertToRaw(boxNames);
+    const rawData = addFFPadding([...boxNames]);
     const thumbData = extractOpcodes(boxNames, 2);
     const armData = extractOpcodes(boxNames, 4);
     rawDataView.value = getRawBoxNamesDisplay(rawData);
