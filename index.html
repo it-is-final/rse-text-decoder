@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self'; script-src 'self'; style-src 'self'; font-src 'self'">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokémon Gen III Character Encoding Decoder</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <h1>Pokémon Gen III Character Encoding Decoder</h1>
+    <main>
+        <select name="lang" title="Language selector" id="lang">
+            <option value="JP">Japanese</option>
+            <option value="EN">English/Italian/Spanish</option>
+            <option value="FR">French</option>
+            <option value="DE">German</option>
+        </select>
+        <textarea id="input" title="Input" rows="25" spellcheck="false"></textarea>
+        <div id="outputArea">
+                <div class="rawDataOutput">
+                    <p>Raw Data:</p>
+                    <textarea id="output" rows="14" spellcheck="false" readonly></textarea>
+                </div>
+                <div>
+                    <p>Thumb:</p>
+                    <textarea id="outputThumb" rows="14" spellcheck="false" readonly></textarea>
+                </div>
+                <div>
+                    <p>ARM:</p>
+                    <textarea id="outputARM" rows="14" spellcheck="false" readonly></textarea>
+                </div>
+                <div>
+                    <p>CodeGenerator:</p>
+                    <textarea id="outputCG" rows="14" spellcheck="false" readonly></textarea>
+                </div>
+            </div>
+        </div>
+        <button id="convertButton">Convert!</button>
+    </main>
+    <!-- <script type="text/javascript" src="character_maps.js" ></script> -->
+    <script type="module" src="script.js" ></script>
+</body>
+</html>
