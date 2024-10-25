@@ -56,14 +56,6 @@ function getOpcodeDisplay(opcodes, opcodeLength) {
     return output.join('\n');
 }
 
-function getCGDisplay(opcodes) {
-    let output = [];
-    for (const opcode of opcodes) {
-        output.push('0x' + opcode.toString(16).padStart(8, '0'));
-    }
-    return output.join('\n')
-}
-
 function extractOpcodes(rawBoxNames, opcodeLength) {
     let rawData = [...rawBoxNames];
     addFFPadding(rawData, opcodeLength);
@@ -85,7 +77,6 @@ function main() {
     const rawDataView = document.getElementById('output');
     const thumbView = document.getElementById('outputThumb');
     const armView = document.getElementById('outputARM');
-    const cgView = document.getElementById('outputCG');
     const boxNames = getBoxNamesData(rawInputData, lang);
     const rawData = addFFPadding([...boxNames], 9);
     const thumbData = extractOpcodes(boxNames, 2);
@@ -93,8 +84,6 @@ function main() {
     rawDataView.value = getRawBoxNamesDisplay(rawData);
     thumbView.value = getOpcodeDisplay(thumbData, 4);
     armView.value = getOpcodeDisplay(armData, 8);
-    cgView.value = getCGDisplay(armData);
-
 }
 
 document.getElementById('convertButton').onclick = main;
