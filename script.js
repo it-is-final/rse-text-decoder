@@ -25,7 +25,12 @@ function getBoxNamesData (rawInputData, lang) {
         }
         for (let i = 0; i < line.length; i++) {
             line[i] = substituteChar(line[i], lang);
-            rawBoxNames.push(reverseCharMap[line[i]]);
+            if (line[i] in reverseCharMap) {
+                rawBoxNames.push(reverseCharMap[line[i]]);
+            } else {
+                alert("invalid character");
+                return null;
+            }
         }
     }
     return rawBoxNames;
@@ -78,6 +83,9 @@ function main() {
     const thumbView = document.getElementById('outputThumb');
     const armView = document.getElementById('outputARM');
     const boxNames = getBoxNamesData(rawInputData, lang);
+    if (!boxNames) {
+        return null;
+    }
     const rawData = addFFPadding([...boxNames], 9);
     const thumbData = extractOpcodes(boxNames, 2);
     const armData = extractOpcodes(boxNames, 4);
