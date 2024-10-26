@@ -12,17 +12,25 @@ function addFFPadding(rawBoxNames, targetLength) {
     return output;
 }
 
-function getBoxNamesData (rawInputData, lang) {
-    const inputData = rawInputData.split('\n')
+function gatherBoxNames() {
+    let output = []
+    const boxNames = document.getElementById("boxNamesInput").getElementsByTagName("input");
+    for (const boxName of boxNames) {
+        if (boxName.value) {
+            output.push(boxName.value);
+        }
+    }
+    return output;
+}
+
+function getBoxNamesData() {
+    const inputData = gatherBoxNames()
+    const lang = document.getElementById('lang').value;
     const [charMap, reverseCharMap] = getCharacterMap(lang)
     let rawBoxNames = []
     for (const rawLine of inputData) {
         addFFPadding(rawBoxNames, 9);
         let line = [...rawLine];
-        if (line.length > 8) {
-            alert("line is too long");
-            return null;
-        }
         for (let i = 0; i < line.length; i++) {
             line[i] = substituteChar(line[i], lang);
             if (line[i] in reverseCharMap) {
@@ -67,22 +75,18 @@ function extractOpcodes(rawBoxNames, opcodeLength) {
     let opcodes = [];
     for (let i = 0; i < rawData.length; i += opcodeLength) {
         const rawOpcode = rawData.slice(i, i + opcodeLength);
-        let opcode;
-        for (let i = 0; i < rawOpcode.length; i++) {
-            opcode = (rawOpcode[i] << (i * 8)) | opcode;
-        }
+        const opcode = rawOpcode.reduce(
+            (partOpcode, byte, index) => partOpcode | byte << (index * 8));
         opcodes.push(opcode >>> 0);
     }
     return opcodes;
 }
 
 function main() {
-    const rawInputData = document.getElementById('input').value;
-    const lang = document.getElementById('lang').value;
-    const rawDataView = document.getElementById('output');
-    const thumbView = document.getElementById('outputThumb');
-    const armView = document.getElementById('outputARM');
-    const boxNames = getBoxNamesData(rawInputData, lang);
+    const rawDataView = document.getElementById('rawDataOutput');
+    const thumbView = document.getElementById('thumbOutput');
+    const armView = document.getElementById('armOutput');
+    const boxNames = getBoxNamesData();
     if (!boxNames) {
         return null;
     }
@@ -94,4 +98,7 @@ function main() {
     armView.value = getOpcodeDisplay(armData, 8);
 }
 
-document.getElementById('convertButton').onclick = main;
+document.getElementById("convertButton").addEventListener('click', 
+    function() {
+        main();
+});
