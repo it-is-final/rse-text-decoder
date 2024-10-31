@@ -31,39 +31,6 @@ form fieldset output{
     flex-direction: column;
 }
 
-/* fieldset#boxNamesInput {
-    border: 0;
-    margin: 0;
-    padding: 0;
-} */
-
-/* #outputArea {
-    display: grid;
-    column-gap: 1em;
-    row-gap: 1em;
-}
-
-#boxNamesInput{
-    width: 20em;
-    display: grid;
-    row-gap: 0.25em;
-    grid-template-columns: 6em auto;
-}
-
-#langLabel, #lang{
-    width: 100%;
-    margin: 0.25em auto;
-}
-
-#boxNamesInput input {
-    font-family: monospace;
-}
-
-#convertButton {
-    width: 100%;
-    grid-column: 1 / 2 span;
-}
-*/
 #outputArea div textarea {
     min-width: 27ch;
     width: 100%;
