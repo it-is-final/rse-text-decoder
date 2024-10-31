@@ -8,37 +8,27 @@ main {
     row-gap: 1em;
 }
 
-#outputArea {
-    display: grid;
-    column-gap: 1em;
-    row-gap: 1em;
-}
-
 @media screen and (min-width: calc(16.5em + 31ch)) {
     main {
         grid-template-columns: 20em auto;
     }
 }
 
-#boxNamesInput{
-    width: 20em;
-    display: grid;
-    row-gap: 0.25em;
-    grid-template-columns: 6em auto;
-}
-
-#langLabel, #lang{
+form{
+    display: flex;
+    flex-direction: row;
     width: 100%;
-    margin: 0.25em auto;
 }
 
-#boxNamesInput input {
-    font-family: monospace;
+form fieldset {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
 }
 
-#convertButton {
-    width: 100%;
-    grid-column: 1 / 2 span;
+form fieldset output{
+    display: flex;
+    flex-direction: column;
 }
 
 #outputArea div textarea {
