@@ -2,13 +2,6 @@ import { substituteChar } from './character_maps.js';
 import { getCharacterMap } from './character_maps.js';
 
 function addFFPadding(data, targetLength) {
-    // let output = data;
-    // if (output.length % targetLength) {
-    //     const emptySlots = targetLength - (output.length % targetLength)
-    //     for (let i = 0; i < emptySlots; i++) {
-    //         output.push(0xFF);
-    //     }
-    // }
     let output = [];
     const remainder = data.length % targetLength;
     const neededPadding = (targetLength - remainder) % targetLength;
@@ -47,23 +40,6 @@ function getBoxNamesData() {
         }
     }
     return rawBoxNames;
-}
-
-function getRawBoxNamesDisplay(rawData) {
-    let lines = [];
-    let output = [];
-    for (let i = 0; i < rawData.length; i += 9) {
-        const line = rawData.slice(i, i + 9);
-        lines.push(line);
-    }
-    for (const line of lines) {
-        let boxName = [];
-        for (const char of line) {
-            boxName.push(char.toString(16).padStart(2, '0'));
-        }
-        output.push(boxName.join(' '));
-    }
-    return output.join('\n');
 }
 
 function getOpcodeDisplay(opcodes, opcodeLength) {
@@ -108,25 +84,25 @@ function addBox () {
     frag.appendChild(boxEntry);
     boxNamesEntry.appendChild(frag);
 };
-function removeBox () {
+
+addBox();
+
+document.getElementById("addBoxButton").addEventListener('click', addBox);
+document.getElementById("removeBoxButton").addEventListener('click', function () {
     const boxCount = boxNamesEntry.querySelectorAll("input").length;
     if (boxCount <= 1) {
         alert("Illegal operation");
         return;
     }
     const allBoxes = boxNamesEntry.querySelectorAll("input")
-    const lastBoxID = allBoxes[boxCount - 1].id
+    const lastBoxID = allBoxes[boxCount - 1].id;
     boxNamesEntry.removeChild(allBoxes[boxCount - 1]);
     for (const label of boxNamesEntry.querySelectorAll("label")) {
         if (label.htmlFor === lastBoxID) {
             boxNamesEntry.removeChild(label);
         }
     }
-};
-addBox();
-
-document.getElementById("addBoxButton").addEventListener('click', addBox);
-document.getElementById("removeBoxButton").addEventListener('click', removeBox)
+})
 
 document.getElementById("convertButton").addEventListener('click', 
     function() {
@@ -140,7 +116,22 @@ document.getElementById("convertButton").addEventListener('click',
         const rawData = boxNames.concat(addFFPadding(boxNames, 9))
         const thumbData = extractOpcodes(boxNames, 2);
         const armData = extractOpcodes(boxNames, 4);
-        rawDataView.value = getRawBoxNamesDisplay(rawData);
+        rawDataView.value = (function (rawData) {
+            let lines = [];
+            let output = [];
+            for (let i = 0; i < rawData.length; i += 9) {
+                const line = rawData.slice(i, i + 9);
+                lines.push(line);
+            }
+            for (const line of lines) {
+                let boxName = [];
+                for (const char of line) {
+                    boxName.push(char.toString(16).padStart(2, '0'));
+                }
+                output.push(boxName.join(' '));
+            }
+            return output.join('\n');
+        })(rawData);
         thumbView.value = getOpcodeDisplay(thumbData, 4);
         armView.value = getOpcodeDisplay(armData, 8);
 });
