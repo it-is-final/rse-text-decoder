@@ -8,16 +8,39 @@ main {
     row-gap: 1em;
 }
 
-#outputArea {
-    display: grid;
-    column-gap: 1em;
-    row-gap: 1em;
-}
-
 @media screen and (min-width: calc(16.5em + 31ch)) {
     main {
         grid-template-columns: 20em auto;
     }
+}
+
+form{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+form fieldset {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+form fieldset output{
+    display: flex;
+    flex-direction: column;
+}
+
+/* fieldset#boxNamesInput {
+    border: 0;
+    margin: 0;
+    padding: 0;
+} */
+
+/* #outputArea {
+    display: grid;
+    column-gap: 1em;
+    row-gap: 1em;
 }
 
 #boxNamesInput{
@@ -40,7 +63,7 @@ main {
     width: 100%;
     grid-column: 1 / 2 span;
 }
-
+*/
 #outputArea div textarea {
     min-width: 27ch;
     width: 100%;

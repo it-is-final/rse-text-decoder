@@ -10,58 +10,38 @@
 <body>
     <h1>rse-text-decoder</h1>
     <main>
-        <form id="boxNamesInput">
-            <label for="lang" id="langLabel">Game Language:</label>
-            <select name="lang" title="Language selector" id="lang">
-                <option value="JP">Japanese</option>
-                <option value="EN">English/Italian/Spanish</option>
-                <option value="FR">French</option>
-                <option value="DE">German</option>
-            </select>
-            <label for="box1Input">Box 1:</label>
-            <input type="text" id="box1Input" name="box1" maxlength="9" spellcheck="false" autocomplete="false">
-            <label for="box2Input">Box 2:</label>
-            <input type="text" id="box2Input" name="box2" maxlength="9" spellcheck="false" autocomplete="false">
-            <label for="box3Input">Box 3:</label>
-            <input type="text" id="box3Input" name="box3" maxlength="9" spellcheck="false" autocomplete="false">
-            <label for="box4Input">Box 4:</label>
-            <input type="text" id="box4Input" name="box4" maxlength="9" spellcheck="false" autocomplete="false">
-            <label for="box5Input">Box 5:</label>
-            <input type="text" id="box5Input" name="box5" maxlength="9" spellcheck="false" autocomplete="false">
-            <label for="box6Input">Box 6:</label>
-            <input type="text" id="box6Input" name="box6" maxlength="9" spellcheck="false" autocomplete="false">
-            <label for="box7Input">Box 7:</label>
-            <input type="text" id="box7Input" name="box7" maxlength="9" spellcheck="false" autocomplete="false">
-            <label for="box8Input">Box 8:</label>
-            <input type="text" id="box8Input" name="box8" maxlength="9" spellcheck="false" autocomplete="false">
-            <label for="box9Input">Box 9:</label>
-            <input type="text" id="box9Input" name="box9" maxlength="9" spellcheck="false" autocomplete="false">
-            <label for="box10Input">Box 10:</label>
-            <input type="text" id="box10Input" name="box10" maxlength="9" spellcheck="false" autocomplete="false">
-            <label for="box11Input">Box 11:</label>
-            <input type="text" id="box11Input" name="box11" maxlength="9" spellcheck="false" autocomplete="false">
-            <label for="box12Input">Box 12:</label>
-            <input type="text" id="box12Input" name="box12" maxlength="9" spellcheck="false" autocomplete="false">
-            <label for="box13Input">Box 13:</label>
-            <input type="text" id="box13Input" name="box13" maxlength="9" spellcheck="false" autocomplete="false">
-            <label for="box14Input">Box 14:</label>
-            <input type="text" id="box14Input" name="box14" maxlength="9" spellcheck="false" autocomplete="false">
-            <button id="convertButton" type="button">Decode</button>
+        <form>
+            <fieldset id="boxNamesInput">
+                <legend>Box Names</legend>
+                <button id="addBoxButton" type="button">+</button>
+                <button id="removeBoxButton" type="button">-</button>
+                
+            </fieldset>
+            <fieldset id="params">
+                <label for="lang" id="langLabel">Game Language:</label>
+                <select name="lang" title="Language selector" id="lang">
+                    <option value="JP">Japanese</option>
+                    <option value="EN">English/Italian/Spanish</option>
+                    <option value="FR">French</option>
+                    <option value="DE">German</option>
+                </select>
+                <button id="convertButton" type="button">Decode</button>
+                <output id="outputArea">
+                    <div>
+                        <label for="rawDataOutput">Raw Data:</label><br>
+                        <textarea id="rawDataOutput" rows="8" spellcheck="false" readonly></textarea>
+                    </div>
+                    <div>
+                        <label for="thumbOutput">Thumb:</label><br>
+                        <textarea id="thumbOutput" rows="8" spellcheck="false" readonly></textarea>
+                    </div>
+                    <div>
+                        <label for="armOutput">ARM:</label><br>
+                        <textarea id="armOutput" rows="8" spellcheck="false" readonly></textarea>
+                    </div>
+                </output>
+            </fieldset>
         </form>
-        <section id="outputArea">
-            <div>
-                <label for="rawDataOutput">Raw Data:</label><br>
-                <textarea id="rawDataOutput" rows="8" spellcheck="false" readonly></textarea>
-            </div>
-            <div>
-                <label for="thumbOutput">Thumb:</label><br>
-                <textarea id="thumbOutput" rows="8" spellcheck="false" readonly></textarea>
-            </div>
-            <div>
-                <label for="armOutput">ARM:</label><br>
-                <textarea id="armOutput" rows="8" spellcheck="false" readonly></textarea>
-            </div>
-        </section>
     </main>
     <footer>
         <p><a href="https://github.com/kaitouctr/rse-text-decoder">Source Code</a></p>
