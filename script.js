@@ -1,6 +1,12 @@
 import { substituteChar } from './character_maps.js';
 import { getCharacterMap } from './character_maps.js';
 
+const boxNamesEntry = document.getElementById("boxNamesInput");
+const rawDataView = document.getElementById('rawDataOutput');
+const thumbView = document.getElementById('thumbOutput');
+const armView = document.getElementById('armOutput');
+const lang = document.getElementById('lang').value;
+
 function addFFPadding(data, targetLength) {
     let output = [];
     const remainder = data.length % targetLength;
@@ -9,37 +15,6 @@ function addFFPadding(data, targetLength) {
         output.push(0xFF);
     }
     return output;
-}
-
-function getBoxNamesData() {
-    const inputData = (function() {
-        let output = []
-        const boxNames = document.getElementById("boxNamesInput").querySelectorAll("input");
-        for (const boxName of boxNames) {
-            output.push(boxName.value);
-        }
-        return output;
-    })();
-    const lang = document.getElementById('lang').value;
-    const [charMap, reverseCharMap] = getCharacterMap(lang)
-    let rawBoxNames = []
-    for (const rawLine of inputData) {
-        rawBoxNames.push(...addFFPadding(rawBoxNames, 9));
-        let line = [...rawLine];
-        for (let i = 0; i < line.length; i++) {
-            line[i] = substituteChar(line[i], lang);
-            if (line[i] in reverseCharMap) {
-                rawBoxNames.push(reverseCharMap[line[i]]);
-            } else {
-                alert("invalid character");
-                return null;
-            }
-        }
-        if (rawLine.length === 0) {
-            rawBoxNames.push(...[0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF])
-        }
-    }
-    return rawBoxNames;
 }
 
 function getOpcodeDisplay(opcodes, opcodeLength) {
@@ -62,7 +37,6 @@ function extractOpcodes(rawBoxNames, opcodeLength) {
     return opcodes;
 }
 
-const boxNamesEntry = document.getElementById("boxNamesInput");
 function addBox () {
     const boxCount = boxNamesEntry.querySelectorAll("input").length;
     if (boxCount >= 14) {
@@ -106,10 +80,35 @@ document.getElementById("removeBoxButton").addEventListener('click', function ()
 
 document.getElementById("convertButton").addEventListener('click', 
     function() {
-        const rawDataView = document.getElementById('rawDataOutput');
-        const thumbView = document.getElementById('thumbOutput');
-        const armView = document.getElementById('armOutput');
-        const boxNames = getBoxNamesData();
+        const boxNames = (function () {
+            const inputData = (function() {
+                let output = []
+                const boxNames = document.getElementById("boxNamesInput").querySelectorAll("input");
+                for (const boxName of boxNames) {
+                    output.push(boxName.value);
+                }
+                return output;
+            })();
+            const [charMap, reverseCharMap] = getCharacterMap(lang)
+            let rawBoxNames = []
+            for (const rawLine of inputData) {
+                rawBoxNames.push(...addFFPadding(rawBoxNames, 9));
+                let line = [...rawLine];
+                for (let i = 0; i < line.length; i++) {
+                    line[i] = substituteChar(line[i], lang);
+                    if (line[i] in reverseCharMap) {
+                        rawBoxNames.push(reverseCharMap[line[i]]);
+                    } else {
+                        alert("invalid character");
+                        return null;
+                    }
+                }
+                if (rawLine.length === 0) {
+                    rawBoxNames.push(...[0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF])
+                }
+            }
+            return rawBoxNames;
+        })();
         if (!boxNames) {
             return null;
         }
