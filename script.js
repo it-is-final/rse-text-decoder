@@ -5,7 +5,7 @@ const boxNamesEntry = document.getElementById("boxNamesInput");
 const rawDataView = document.getElementById('rawDataOutput');
 const thumbView = document.getElementById('thumbOutput');
 const armView = document.getElementById('armOutput');
-const lang = document.getElementById('lang').value;
+const lang = _ => document.getElementById('lang').value;
 const addBoxButton = document.getElementById("addBoxButton");
 const removeBoxButton = document.getElementById("removeBoxButton");
 const boxCount = _ => boxNamesEntry.querySelectorAll("input").length;
@@ -71,11 +71,11 @@ document.getElementById("convertButton").addEventListener('click',
             const input = document.getElementById("boxNamesInput").querySelectorAll("input");
             const readInput = () => [...input].map((line) => line.value);
             const inputData = readInput();
-            const [charMap, reverseCharMap] = getCharacterMap(lang)
+            const [charMap, reverseCharMap] = getCharacterMap(lang())
             let data = [];
             for (const line of inputData) {
                 data.push(...addFFPadding(data, 9));
-                const nameString = [...line].map((char) => substituteChar(char, lang));
+                const nameString = [...line].map((char) => substituteChar(char, lang()));
                 if (!(nameString.filter((char) => !(char in reverseCharMap)).length === 0))
                     throw new Error("Invalid character");
                 data.push(...nameString.map((char) => reverseCharMap[char]));
