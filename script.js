@@ -6,49 +6,35 @@ const rawDataView = document.getElementById('rawDataOutput');
 const thumbView = document.getElementById('thumbOutput');
 const armView = document.getElementById('armOutput');
 const lang = document.getElementById('lang').value;
+const addBoxButton = document.getElementById("addBoxButton");
+const removeBoxButton = document.getElementById("removeBoxButton");
+const boxCount = _ => boxNamesEntry.querySelectorAll("input").length;
+addBox();
 
 function addFFPadding(data, targetLength) {
-    let output = [];
     const remainder = data.length % targetLength;
     const neededPadding = (targetLength - remainder) % targetLength;
-    for (let i = 0; i < neededPadding; i++) {
-        output.push(0xFF);
-    }
-    return output;
-}
-
-function getOpcodeDisplay(opcodes, opcodeLength) {
-    let output = [];
-    for (const opcode of opcodes) {
-        output.push(opcode.toString(16).padStart(opcodeLength, '0'));
-    }
-    return output.join('\n');
+    return Array(neededPadding).fill(0xFF);
 }
 
 function extractOpcodes(rawBoxNames, opcodeLength) {
-    let rawData = rawBoxNames.concat(addFFPadding(rawBoxNames, opcodeLength));
+    const rawData = rawBoxNames.concat(addFFPadding(rawBoxNames, opcodeLength));
     let opcodes = [];
     for (let i = 0; i < rawData.length; i += opcodeLength) {
         const rawOpcode = rawData.slice(i, i + opcodeLength);
-        const opcode = rawOpcode.reduce(
-            (partOpcode, byte, index) => partOpcode | byte << (index * 8));
+        const opcode = rawOpcode.reduce((partOpcode, byte, index) => partOpcode | byte << (index * 8));
         opcodes.push(opcode >>> 0);
     }
     return opcodes;
 }
 
-function addBox () {
-    const boxCount = boxNamesEntry.querySelectorAll("input").length;
-    if (boxCount >= 14) {
-        alert("Illegal operation");
-        return;
-    }
+function addBox() {
     const frag = new DocumentFragment;
     const boxLabel = document.createElement("label");
     const boxEntry = document.createElement("input");
-    const boxID = `box${boxCount + 1}Entry`
+    const boxID = `box${boxCount() + 1}Entry`
     boxLabel.htmlFor = boxID;
-    boxLabel.innerText = `Box ${boxCount + 1}:`
+    boxLabel.innerText = `Box ${boxCount() + 1}:`
     frag.appendChild(boxLabel);
     boxEntry.id = boxID;
     boxEntry.type = "text";
@@ -59,78 +45,64 @@ function addBox () {
     boxNamesEntry.appendChild(frag);
 };
 
-addBox();
+addBoxButton.addEventListener('click', function() {
+    addBox();
+    if (boxCount() >= 14)
+        this.disabled = true;
+    if (boxCount() > 1)
+        removeBoxButton.disabled = false;
+});
 
-document.getElementById("addBoxButton").addEventListener('click', addBox);
-document.getElementById("removeBoxButton").addEventListener('click', function () {
-    const boxCount = boxNamesEntry.querySelectorAll("input").length;
-    if (boxCount <= 1) {
-        alert("Illegal operation");
-        return;
-    }
-    const allBoxes = boxNamesEntry.querySelectorAll("input")
-    const lastBoxID = allBoxes[boxCount - 1].id;
-    boxNamesEntry.removeChild(allBoxes[boxCount - 1]);
-    for (const label of boxNamesEntry.querySelectorAll("label")) {
-        if (label.htmlFor === lastBoxID) {
-            boxNamesEntry.removeChild(label);
-        }
-    }
+removeBoxButton.addEventListener('click', function() {
+    const allBoxInputs = boxNamesEntry.querySelectorAll("input");
+    const allBoxLabels = boxNamesEntry.querySelectorAll("label");
+    const lastBox = allBoxInputs[boxCount() - 1];
+    boxNamesEntry.removeChild([...allBoxLabels].filter((label) => label.htmlFor === lastBox.id)[0]);
+    boxNamesEntry.removeChild(lastBox);
+    if (boxCount() <= 1)
+        this.disabled = true;
+    if (boxCount() < 14)
+        addBoxButton.disabled = false;
 })
 
 document.getElementById("convertButton").addEventListener('click', 
-    function() {
-        const boxNames = (function () {
-            const inputData = (function() {
-                let output = []
-                const boxNames = document.getElementById("boxNamesInput").querySelectorAll("input");
-                for (const boxName of boxNames) {
-                    output.push(boxName.value);
-                }
-                return output;
-            })();
+    () => {
+        const getBoxNames = function readBoxNames() {
+            const input = document.getElementById("boxNamesInput").querySelectorAll("input");
+            const readInput = () => [...input].map((line) => line.value);
+            const inputData = readInput();
             const [charMap, reverseCharMap] = getCharacterMap(lang)
-            let rawBoxNames = []
-            for (const rawLine of inputData) {
-                rawBoxNames.push(...addFFPadding(rawBoxNames, 9));
-                let line = [...rawLine];
-                for (let i = 0; i < line.length; i++) {
-                    line[i] = substituteChar(line[i], lang);
-                    if (line[i] in reverseCharMap) {
-                        rawBoxNames.push(reverseCharMap[line[i]]);
-                    } else {
-                        alert("invalid character");
-                        return null;
-                    }
-                }
-                if (rawLine.length === 0) {
-                    rawBoxNames.push(...[0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF])
-                }
+            let data = [];
+            for (const line of inputData) {
+                data.push(...addFFPadding(data, 9));
+                const nameString = [...line].map((char) => substituteChar(char, lang));
+                if (!(nameString.filter((char) => !(char in reverseCharMap)).length === 0))
+                    throw new Error("Invalid character");
+                data.push(...nameString.map((char) => reverseCharMap[char]));
+                if (nameString.length === 0)
+                    data.push(Array(9).fill(0xFF));
             }
-            return rawBoxNames;
-        })();
-        if (!boxNames) {
-            return null;
+            return data;
         }
-        const rawData = boxNames.concat(addFFPadding(boxNames, 9))
-        const thumbData = extractOpcodes(boxNames, 2);
-        const armData = extractOpcodes(boxNames, 4);
-        rawDataView.value = (function (rawData) {
+        const formatRawData = (rawData) => {
             let lines = [];
-            let output = [];
-            for (let i = 0; i < rawData.length; i += 9) {
-                const line = rawData.slice(i, i + 9);
-                lines.push(line);
-            }
-            for (const line of lines) {
-                let boxName = [];
-                for (const char of line) {
-                    boxName.push(char.toString(16).padStart(2, '0'));
-                }
-                output.push(boxName.join(' '));
-            }
+            for (let i = 0; i < rawData.length; i += 9)
+                lines.push(rawData.slice(i, i + 9));
+            const output = lines.map((line) => line.map((char) => char.toString(16).padStart(2, '0')).join(' '));
             return output.join('\n');
-        })(rawData);
-        thumbView.value = getOpcodeDisplay(thumbData, 4);
-        armView.value = getOpcodeDisplay(armData, 8);
+        }
+        const writeDisplayOpcodes = (opcodes, opcodeLength) => opcodes.map((opcode) => opcode.toString(16).padStart(opcodeLength, '0')).join('\n');
+        let rawData;
+        try {
+            rawData = getBoxNames();    
+        } catch(e) {
+            alert("Invalid characters were found");
+            console.log(e);
+            return;
+        }
+        const thumbData = extractOpcodes(rawData, 2);
+        const armData = extractOpcodes(rawData, 4);
+        rawDataView.value = formatRawData(rawData.concat(addFFPadding(rawData, 9)));
+        thumbView.value = writeDisplayOpcodes(thumbData, 4);
+        armView.value = writeDisplayOpcodes(armData, 8);
 });
