@@ -1,2 +1,7 @@
 server.bat
 favicon.ico
+.mypy_cache
+node_modules
+package.json
+package-lock.json
+convert_char_map.py
