@@ -6,6 +6,7 @@
   "scripts": {
     "start": "npm run build && npx serve dist/",
     "build": "npx esbuild src/index.ts --bundle --outfile=dist/index.js && npx shx cp -r src/html/. dist/",
+    "clean": "npx shx rm -r dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
