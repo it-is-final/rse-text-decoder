@@ -6,6 +6,7 @@
   "scripts": {
     "start": "npm run build && npx serve dist/",
     "build": "npx esbuild src/index.ts --bundle --outfile=dist/index.js && npx shx cp -r src/html/. dist/",
+    "lint": "npx eslint src",
     "clean": "npx shx rm -r dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -20,10 +21,10 @@
   },
   "homepage": "https://github.com/kaitouctr/rse-text-decoder#readme",
   "devDependencies": {
-    "@eslint/js": "^9.15.0",
+    "@eslint/js": "^9.14.0",
     "@types/eslint__js": "^8.42.3",
     "esbuild": "^0.24.0",
-    "eslint": "^9.15.0",
+    "eslint": "^9.14.0",
     "serve": "^14.2.4",
     "shx": "^0.3.4",
     "typescript": "^5.6.3",

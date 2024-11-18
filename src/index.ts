@@ -1,3 +1,5 @@
+//! SPDX-License-Identifier: MIT
+
 const japaneseMap = new Map([
     [0x0, "　"], 
     [0x1, "あ"], [0x2, "い"], [0x3, "う"], [0x4, "え"], [0x5, "お"], 
