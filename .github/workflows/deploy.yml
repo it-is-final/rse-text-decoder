@@ -36,7 +36,7 @@ jobs:
         run: npm ci
       - name: Build .js
         id: build
-        run: npx esbuild src/index.ts --bundle --outfile=dist/index.js 
+        run: npx esbuild src/index.ts --bundle  --minify --outfile=dist/index.js 
       - name: Prepare HTML, and CSS
         run: cp -r src/html/. dist/
       - name: Upload static files as artifact
