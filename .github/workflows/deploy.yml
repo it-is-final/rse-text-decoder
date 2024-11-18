@@ -28,30 +28,22 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        with:
-            sparse-checkout: |
-                .swcrc
-                index.html
-                rse-text-decoder.ts
-                style.css
-      - name: Get swc
+      - name: Setup node.js
         uses: actions/setup-node@v4
         with:
             node-version: 22.7
-      - run: npm i -D @swc/cli @swc/core
-      - name: Build rse-text-decoder.ts and prepare directory
+      - name: Install dependencies
+        run: npm ci
+      - name: Build .js
         id: build
-        run: |
-            npx swc rse-text-decoder.ts -o rse-text-decoder.js --config-file .swcrc
-            mkdir out
-            mv index.html out/index.html
-            mv style.css out/style.css
-            mv rse-text-decoder.js out/rse-text-decoder.js
+        run: npx esbuild src/index.ts --bundle --outfile=dist/index.js 
+      - name: Prepare HTML, and CSS
+        run: cp -r src/html/. dist/
       - name: Upload static files as artifact
         id: deployment
         uses: actions/upload-pages-artifact@v3 # or specific "vX.X.X" version tag for this action
         with:
-          path: out/
+          path: dist/
 
   # Deploy job
   deploy:

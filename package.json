@@ -1,0 +1,31 @@
+{
+  "name": "rse-text-decoder",
+  "version": "1.0.0",
+  "description": "A tool to convert text characters into the corresponding codepoints in the character encoding of the generation III Pokemon games.",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "npm run build && npx serve dist/",
+    "build": "npx esbuild src/index.ts --bundle --outfile=dist/index.js && npx shx cp -r src/html/. dist/",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kaitouctr/rse-text-decoder.git"
+  },
+  "author": "kaitouctr",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kaitouctr/rse-text-decoder/issues"
+  },
+  "homepage": "https://github.com/kaitouctr/rse-text-decoder#readme",
+  "devDependencies": {
+    "@eslint/js": "^9.15.0",
+    "@types/eslint__js": "^8.42.3",
+    "esbuild": "^0.24.0",
+    "eslint": "^9.15.0",
+    "serve": "^14.2.4",
+    "shx": "^0.3.4",
+    "typescript": "^5.6.3",
+    "typescript-eslint": "^8.14.0"
+  }
+}
