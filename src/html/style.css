@@ -1,43 +1,34 @@
-body {
-    max-width: 720px;
-    margin: auto auto;
+.box-name-input {
+    font-family: monospace;
 }
-main {
+
+div#editor {
+    display: flex;
+    gap: 1em;
+}
+
+div#box-name-inputs {
     display: grid;
-    column-gap: 1em;
-    row-gap: 1em;
+    gap: 0.25em;
+    grid-template-columns: auto auto;
 }
 
-@media screen and (min-width: calc(16.5em + 31ch)) {
-    main {
-        grid-template-columns: 20em auto;
-    }
+label#box-name-byte-view-label {
+    display: none;
 }
 
-form{
-    display: flex;
-    flex-direction: row;
-    width: 100%;
+textarea#box-name-byte-view:invalid {
+    border: 1px solid red;
 }
 
-form fieldset {
-    width: 50%;
-    display: flex;
-    flex-direction: column;
+textarea#box-name-byte-view:focus {
+    outline: transparent;
+    border: 1px solid black;
+    box-shadow: 0 0 10px #719ECE;
 }
 
-form fieldset output{
-    display: flex;
-    flex-direction: column;
-}
-
-#outputArea div textarea {
-    min-width: 27ch;
-    width: 100%;
-}
-
-textarea {
-    -webkit-box-sizing: border-box;
-       -moz-box-sizing: border-box;
-            box-sizing: border-box;
+textarea#box-name-byte-view:focus:invalid {
+    outline: transparent;
+    border: 2px solid red;
+    box-shadow: 0 0 10px #CE9E71;
 }

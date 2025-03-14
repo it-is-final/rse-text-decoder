@@ -9,42 +9,53 @@
 </head>
 <body>
     <h1>rse-text-decoder</h1>
-    <main>
-        <form>
-            <fieldset id="boxNamesInput">
-                <legend>Box Names</legend>
-                <button id="addBoxButton" type="button">+</button>
-                <button id="removeBoxButton" type="button" disabled>-</button>
-                
-            </fieldset>
-            <fieldset id="params">
-                <label for="lang" id="langLabel">Game Language:</label>
-                <select name="lang" title="Language selector" id="lang">
-                    <option value="JPN">Japanese</option>
-                    <option value="ENG">English/Italian/Spanish</option>
-                    <option value="FRA">French</option>
-                    <option value="GER">German</option>
-                </select>
-                <button id="convertButton" type="button">Decode</button>
-                <output id="outputArea">
-                    <div>
-                        <label for="rawDataOutput">Raw Data:</label><br>
-                        <textarea id="rawDataOutput" rows="8" spellcheck="false" readonly></textarea>
-                    </div>
-                    <div>
-                        <label for="thumbOutput">Thumb:</label><br>
-                        <textarea id="thumbOutput" rows="8" spellcheck="false" readonly></textarea>
-                    </div>
-                    <div>
-                        <label for="armOutput">ARM:</label><br>
-                        <textarea id="armOutput" rows="8" spellcheck="false" readonly></textarea>
-                    </div>
-                </output>
-            </fieldset>
-        </form>
+    <main>  
+        <label for="lang" id="langLabel">Game Language:</label>
+        <select name="lang" title="Language selector" id="lang">
+            <option value="JPN">JPN</option>
+            <option value="ENG">ENG</option>
+            <option value="FRA">FRA</option>
+            <option value="ITA">ITA</option>
+            <option value="GER">GER</option>
+            <option value="SPA">SPA</option>
+        </select>
+        <div id="editor">
+            <div id="box-name-inputs">
+                <label>Box 1:</label>
+                <input type="text" maxlength="9" size="18" class="box-name-input" />
+                <label>Box 2:</label>
+                <input type="text" maxlength="9" size="18" class="box-name-input" />
+                <label>Box 3:</label>
+                <input type="text" maxlength="9" size="18" class="box-name-input" />
+                <label>Box 4:</label>
+                <input type="text" maxlength="9" size="18" class="box-name-input" />
+                <label>Box 5:</label>
+                <input type="text" maxlength="9" size="18" class="box-name-input" />
+                <label>Box 6:</label>
+                <input type="text" maxlength="9" size="18" class="box-name-input" />
+                <label>Box 7:</label>
+                <input type="text" maxlength="9" size="18" class="box-name-input" />
+                <label>Box 8:</label>
+                <input type="text" maxlength="9" size="18" class="box-name-input" />
+                <label>Box 9:</label>
+                <input type="text" maxlength="9" size="18" class="box-name-input" />
+                <label>Box 10:</label>
+                <input type="text" maxlength="9" size="18" class="box-name-input" />
+                <label>Box 11:</label>
+                <input type="text" maxlength="9" size="18" class="box-name-input" />
+                <label>Box 12:</label>
+                <input type="text" maxlength="9" size="18" class="box-name-input" />
+                <label>Box 13:</label>
+                <input type="text" maxlength="9" size="18" class="box-name-input" />
+                <label>Box 14:</label>
+                <input type="text" maxlength="9" size="18" class="box-name-input" />
+            </div>
+            <label id="box-name-byte-view-label" for="box-name-byte-view" style="display: none;"></label>
+            <textarea id="box-name-byte-view" cols="26" rows="14" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
+        </div>
     </main>
     <footer>
-        <p><a href="https://github.com/kaitouctr/rse-text-decoder">Source Code</a> <a href="https://github.com/kaitouctr/rse-text-decoder/LICENSE"></a></p>
+        <p><a href="https://github.com/it-is-final/rse-text-decoder">Source Code</a> <a href="https://github.com/kaitouctr/rse-text-decoder/LICENSE"></a></p>
     </footer>
     <script src="index.js" ></script>
 </body>
