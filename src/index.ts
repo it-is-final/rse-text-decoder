@@ -263,8 +263,11 @@ addBox();
                 outputData.push(...addFFPadding(outputData, 9));
                 outputData.push(...[...line].map(char => substituteChar(char, readLang())).map(char => {
                     const mapping = charMap.get(char);
-                    if (mapping) return mapping
-                    else throw new Error("Invalid characters in input")
+                    if (mapping !== undefined) {
+                        return mapping;
+                    } else {
+                        throw new Error("Invalid characters in input");
+                    }
                 }))
                 if (line.length === 0) outputData.push(...(new Uint8Array(9).fill(0xFF)))
             }
