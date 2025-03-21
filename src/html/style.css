@@ -7,6 +7,12 @@ div#editor {
     gap: 1em;
 }
 
+div#parameters-area {
+    display: grid;
+    gap: 0.25em;
+    grid-template-columns: auto auto;
+}
+
 div#box-name-inputs {
     display: grid;
     gap: 0.25em;
@@ -17,18 +23,22 @@ label#box-name-byte-view-label {
     display: none;
 }
 
-textarea#box-name-byte-view:invalid {
+textarea#box-name-byte-view:invalid, input.box-name-input:invalid {
     border: 1px solid red;
 }
 
-textarea#box-name-byte-view:focus {
+textarea#box-name-byte-view:focus, input.box-name-input:focus {
     outline: transparent;
     border: 1px solid black;
-    box-shadow: 0 0 10px #719ECE;
 }
 
-textarea#box-name-byte-view:focus:invalid {
+textarea#box-name-byte-view:focus:invalid, input.box-name-input:focus:invalid {
     outline: transparent;
     border: 2px solid red;
-    box-shadow: 0 0 10px #CE9E71;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em
 }

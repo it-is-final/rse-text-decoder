@@ -9,46 +9,54 @@
 </head>
 <body>
     <h1>rse-text-decoder</h1>
-    <main>  
-        <label for="lang" id="langLabel">Game Language:</label>
-        <select name="lang" title="Language selector" id="lang">
-            <option value="JPN">JPN</option>
-            <option value="ENG">ENG</option>
-            <option value="FRA">FRA</option>
-            <option value="ITA">ITA</option>
-            <option value="GER">GER</option>
-            <option value="SPA">SPA</option>
-        </select>
+    <main>
+        <div id="parameters-area">
+            <label for="lang-input" id="lang-label">Game Language:</label>
+            <select name="lang" title="Language selector" id="lang-input">
+                <option value="JPN" selected>Japanese</option>
+                <option value="ENG">English</option>
+                <option value="FRA">French</option>
+                <option value="ITA">Italian</option>
+                <option value="GER">German</option>
+                <option value="SPA">Spanish</option>
+            </select>
+            <label for="game-version-input" id="langLabel">Game:</label>
+            <select name="game-version" title="Game selector" id="game-version-input">
+                <option value="RS">Ruby/Sapphire</option>
+                <option value="FRLG">FireRed/LeafGreen</option>
+                <option value="E" selected>Emerald</option>
+            </select>
+        </div>
         <div id="editor">
             <div id="box-name-inputs">
-                <label>Box 1:</label>
-                <input type="text" maxlength="9" size="18" class="box-name-input" />
-                <label>Box 2:</label>
-                <input type="text" maxlength="9" size="18" class="box-name-input" />
-                <label>Box 3:</label>
-                <input type="text" maxlength="9" size="18" class="box-name-input" />
-                <label>Box 4:</label>
-                <input type="text" maxlength="9" size="18" class="box-name-input" />
-                <label>Box 5:</label>
-                <input type="text" maxlength="9" size="18" class="box-name-input" />
-                <label>Box 6:</label>
-                <input type="text" maxlength="9" size="18" class="box-name-input" />
-                <label>Box 7:</label>
-                <input type="text" maxlength="9" size="18" class="box-name-input" />
-                <label>Box 8:</label>
-                <input type="text" maxlength="9" size="18" class="box-name-input" />
-                <label>Box 9:</label>
-                <input type="text" maxlength="9" size="18" class="box-name-input" />
-                <label>Box 10:</label>
-                <input type="text" maxlength="9" size="18" class="box-name-input" />
-                <label>Box 11:</label>
-                <input type="text" maxlength="9" size="18" class="box-name-input" />
-                <label>Box 12:</label>
-                <input type="text" maxlength="9" size="18" class="box-name-input" />
-                <label>Box 13:</label>
-                <input type="text" maxlength="9" size="18" class="box-name-input" />
-                <label>Box 14:</label>
-                <input type="text" maxlength="9" size="18" class="box-name-input" />
+                <label for="box-1-input">Box 1:</label>
+                <input id="box-1-input" type="text" maxlength="9" size="18" class="box-name-input" />
+                <label for="box-2-input">Box 2:</label>
+                <input id="box-2-input" type="text" maxlength="9" size="18" class="box-name-input" />
+                <label for="box-3-input">Box 3:</label>
+                <input id="box-3-input" type="text" maxlength="9" size="18" class="box-name-input" />
+                <label for="box-4-input">Box 4:</label>
+                <input id="box-4-input" type="text" maxlength="9" size="18" class="box-name-input" />
+                <label for="box-5-input">Box 5:</label>
+                <input id="box-5-input" type="text" maxlength="9" size="18" class="box-name-input" />
+                <label for="box-6-input">Box 6:</label>
+                <input id="box-6-input" type="text" maxlength="9" size="18" class="box-name-input" />
+                <label for="box-7-input">Box 7:</label>
+                <input id="box-7-input" type="text" maxlength="9" size="18" class="box-name-input" />
+                <label for="box-8-input">Box 8:</label>
+                <input id="box-8-input" type="text" maxlength="9" size="18" class="box-name-input" />
+                <label for="box-9-input">Box 9:</label>
+                <input id="box-9-input" type="text" maxlength="9" size="18" class="box-name-input" />
+                <label for="box-10-input">Box 10:</label>
+                <input id="box-10-input" type="text" maxlength="9" size="18" class="box-name-input" />
+                <label for="box-11-input">Box 11:</label>
+                <input id="box-11-input" type="text" maxlength="9" size="18" class="box-name-input" />
+                <label for="box-12-input">Box 12:</label>
+                <input id="box-12-input" type="text" maxlength="9" size="18" class="box-name-input" />
+                <label for="box-13-input">Box 13:</label>
+                <input id="box-13-input" type="text" maxlength="9" size="18" class="box-name-input" />
+                <label for="box-14-input">Box 14:</label>
+                <input id="box-14-input" type="text" maxlength="9" size="18" class="box-name-input" />
             </div>
             <label id="box-name-byte-view-label" for="box-name-byte-view" style="display: none;"></label>
             <textarea id="box-name-byte-view" cols="26" rows="14" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>

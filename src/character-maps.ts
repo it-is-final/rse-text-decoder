@@ -5,7 +5,7 @@
  * for more information.
  */
 
-type languageToCharMapMap = {
+interface languageToCharMapMap {
     JPN: ReadonlyMap<number, string>,
     ENG: ReadonlyMap<number, string>,
     FRA: ReadonlyMap<number, string>,
@@ -14,7 +14,7 @@ type languageToCharMapMap = {
     SPA: ReadonlyMap<number, string>,
 }
 
-type reverseToCharMapMap = {
+interface reverseToCharMapMap {
     JPN: ReadonlyMap<string, number>,
     ENG: ReadonlyMap<string, number>,
     FRA: ReadonlyMap<string, number>,
@@ -66,7 +66,7 @@ const japaneseMap = new Map([
     [0xa5, "4"], [0xa6, "5"], [0xa7, "6"],
     [0xa8, "7"], [0xa9, "8"], [0xaa, "9"],
     [0xab, "!"], [0xac, "?"],
-    [0xad, "。"], [0xae, "ー"], [0xaf, "・"], [0xb0, "‥"],
+    [0xad, "。"], [0xae, "ー"], [0xaf, "・"], [0xb0, "…"],
     [0xb1, "『"], [0xb2, "』"], [0xb3, "「"], [0xb4, "」"],
     [0xb5, "♂"], [0xb6, "♀"],
     [0xb7, "¥"], [0xb8, "."], [0xb9, "×"],
@@ -306,7 +306,7 @@ const reverseJapaneseMap = new Map([
     ["4", 0xa5], ["5", 0xa6], ["6", 0xa7],
     ["7", 0xa8], ["8", 0xa9], ["9", 0xaa],
     ["!", 0xab], ["?", 0xac],
-    ["。", 0xad], ["ー", 0xae], ["・", 0xaf], ["‥", 0xb0],
+    ["。", 0xad], ["ー", 0xae], ["・", 0xaf], ["…", 0xb0],
     ["『", 0xb1], ["』", 0xb2], ["「", 0xb3], ["」", 0xb4],
     ["♂", 0xb5], ["♀", 0xb6],
     ["¥", 0xb7], [".", 0xb8], ["×", 0xb9],
@@ -436,4 +436,63 @@ export const reverseCharacterMaps: reverseToCharMapMap = {
     "ITA": reverseEnglishMap,
     "GER": reverseGermanMap,
     "SPA": reverseEnglishMap
+}
+
+// Because of regex, ? must be escaped via backslash
+
+const japaneseFullWidthMap = {
+    " ": "　",
+    "0": "０", "1": "１", "2": "２", "3": "３", "4": "４",
+    "5": "５", "6": "６", "7": "７", "8": "８", "9": "９",
+    "A": "Ａ", "B": "Ｂ", "C": "Ｃ", "D": "Ｄ", "E": "Ｅ",
+    "F": "Ｆ", "G": "Ｇ", "H": "Ｈ", "I": "Ｉ", "J": "Ｊ",
+    "K": "Ｋ", "L": "Ｌ", "M": "Ｍ", "N": "Ｎ", "O": "Ｏ",
+    "P": "Ｐ", "Q": "Ｑ", "R": "Ｒ", "S": "Ｓ", "T": "Ｔ",
+    "U": "Ｕ", "V": "Ｖ", "W": "Ｗ", "X": "Ｘ", "Y": "Ｙ",
+    "Z": "Ｚ",
+    "a": "ａ", "b": "ｂ", "c": "ｃ", "d": "ｄ", "e": "ｅ",
+    "f": "ｆ", "g": "ｇ", "h": "ｈ", "i": "ｉ", "j": "ｊ",
+    "k": "ｋ", "l": "ｌ", "m": "ｍ", "n": "ｎ", "o": "ｏ",
+    "p": "ｐ", "q": "ｑ", "r": "ｒ", "s": "ｓ", "t": "ｔ",
+    "u": "ｕ", "v": "ｖ", "w": "ｗ", "x": "ｘ", "y": "ｙ",
+    "z": "ｚ",
+    "!": "！", "?": "？", ":": "："
+}
+
+const rJapaneseFullWidthMap = {
+    "　": " ",
+    "０": "0", "１": "1", "２": "2", "３": "3", "４": "4",
+    "５": "5", "６": "6", "７": "7", "８": "8", "９": "9",
+    "Ａ": "A", "Ｂ": "B", "Ｃ": "C", "Ｄ": "D", "Ｅ": "E",
+    "Ｆ": "F", "Ｇ": "G", "Ｈ": "H", "Ｉ": "I", "Ｊ": "J",
+    "Ｋ": "K", "Ｌ": "L", "Ｍ": "M", "Ｎ": "N", "Ｏ": "O",
+    "Ｐ": "P", "Ｑ": "Q", "Ｒ": "R", "Ｓ": "S", "Ｔ": "T",
+    "Ｕ": "U", "Ｖ": "V", "Ｗ": "W", "Ｘ": "X", "Ｙ": "Y",
+    "Ｚ": "Z",
+    "ａ": "a", "ｂ": "b", "ｃ": "c", "ｄ": "d", "ｅ": "e",
+    "ｆ": "f", "ｇ": "g", "ｈ": "h", "ｉ": "i", "ｊ": "j",
+    "ｋ": "k", "ｌ": "l", "ｍ": "m", "ｎ": "n", "ｏ": "o",
+    "ｐ": "p", "ｑ": "q", "ｒ": "r", "ｓ": "s", "ｔ": "t",
+    "ｕ": "u", "ｖ": "v", "ｗ": "w", "ｘ": "x", "ｙ": "y",
+    "ｚ": "z",
+    "！": "!", "？": "?", "：": ":", "-": "ー", "‥": "…"
+}
+
+export function convertToJPNFullWidth(input: string) {
+    const fixedRegex = Object.keys(japaneseFullWidthMap).join('|').replace("?", "\\?");
+    const rEx = new RegExp(`(${ fixedRegex })`, 'gu');
+    return input.replace(rEx, (match) => japaneseFullWidthMap[match]);
+}
+
+export function convertJpnToStandard(input: string) {
+    const rEx = new RegExp(`(${ Object.keys(rJapaneseFullWidthMap).join('|') })`, 'gu');
+    return input.replace(rEx, (match) => rJapaneseFullWidthMap[match]);
+}
+
+export function convertToRsElipsis(input: string) {
+    return input.replace("…", "‥");
+}
+
+export function convertToFrlgeElipsis(input: string) {
+    return input.replace("‥", "…");
 }
