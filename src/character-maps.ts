@@ -1,6 +1,6 @@
 //! SPDX-License-Identifier: MIT
 /* 
- * © it-is-final 2025.
+ * © final 2025.
  * rse-text-decoder is under the MIT License, read the LICENSE file
  * for more information.
  */

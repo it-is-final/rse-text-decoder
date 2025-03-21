@@ -12,14 +12,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kaitouctr/rse-text-decoder.git"
+    "url": "git+https://github.com/it-is-final/rse-text-decoder.git"
   },
-  "author": "kaitouctr",
+  "author": "final",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/kaitouctr/rse-text-decoder/issues"
+    "url": "https://github.com/it-is-final/rse-text-decoder/issues"
   },
-  "homepage": "https://github.com/kaitouctr/rse-text-decoder#readme",
+  "homepage": "https://github.com/it-is-final/rse-text-decoder#readme",
   "devDependencies": {
     "@eslint/js": "^9.14.0",
     "@types/eslint__js": "^8.42.3",
