@@ -88,7 +88,7 @@ class BoxNames {
         // Length of the box name is always 9
         for (let i = 0; i < 9; i++) {
             const c = _sBoxName.charAt(i);
-            if (c === undefined || c === "") {
+            if (c === "") {
                 this.#boxNames[boxNNumber][i] = 0xFF;
             } else if (reverseCharacterMaps[language].has(c)) {
                 this.#boxNames[boxNNumber][i] = reverseCharacterMaps[language].get(c);
