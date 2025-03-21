@@ -205,7 +205,7 @@ const addFFPadding = (data: Array<number>, targetLength: number) => {
 }
 
 const writeOpcodeDisplay = (opcodes: number[], opcodeLength: number) => {
-    const output = opcodes.map(opcode => opcode.toString(16).padStart(opcodeLength));
+    const output = opcodes.map(opcode => opcode.toString(16).padStart(opcodeLength, "0"));
     return output.join('\n');
 }
 
