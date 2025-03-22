@@ -58,7 +58,7 @@ class BoxNames {
                 break;
             case "FRLG":
                 if (gameLanguage === "JPN") {
-                    characterMap.set(0xb0, "…")
+                    characterMap.set(0xb0, "…");
                 }
                 if (gameLanguage !== "JPN") {
                     characterMap.delete(0x50);
@@ -99,8 +99,8 @@ class BoxNames {
             reverseCharMap.set("↓", 0xF8);
             reverseCharMap.set("←", 0xF9);
             if (gameLanguage !== "JPN") {
-                reverseCharMap.delete("▯")
-                reverseCharMap.delete("*")
+                reverseCharMap.delete("▯");
+                reverseCharMap.delete("*");
                 referenceMap.delete(0x50);
                 referenceMap.delete(0x7D);
                 referenceMap.delete(0x7E);
@@ -117,10 +117,11 @@ class BoxNames {
             }
         }
         if (gameVersion === "FRLG") {
-            reverseCharMap.delete("▯")
-            reverseCharMap.delete("*")
+            if (gameLanguage !== "JPN") {
+                reverseCharMap.delete("▯");
+                reverseCharMap.delete("*");
+            }
         }
-        
         // Length of the box name is always 9
         for (let i = 0; i < 9; i++) {
             const c = sInput.charAt(i);
