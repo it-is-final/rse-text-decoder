@@ -246,6 +246,7 @@ for (const [i, boxNameInput] of boxNameInputs.entries()) {
 }
 
 boxNamesByteView.addEventListener("input", function () {
+    const cursePosition = this.selectionStart;
     const BOX_NAMES_NIBBLE_LENGTH = 252; // (9 * 2) * 14 = 252
     const sByteView = this.value.replace(/\s/gm, "").toUpperCase();
     if (
@@ -264,6 +265,9 @@ boxNamesByteView.addEventListener("input", function () {
     }
     boxNames.fromByteView(newByteView);
     changeAllBoxNames(boxNames.toStringNames(gameVersion, gameLanguage));
+    updateByteView(boxNames.toByteView());
+    this.selectionStart = cursePosition;
+    this.selectionEnd = cursePosition;
 })
 
 window.onload = () => {

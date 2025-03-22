@@ -1,3 +1,8 @@
+body {
+    width: 30em;
+    margin: auto;
+}
+
 .box-name-input {
     font-family: monospace;
 }
@@ -34,7 +39,7 @@ textarea#box-name-byte-view:focus, input.box-name-input:focus {
 
 textarea#box-name-byte-view:focus:invalid, input.box-name-input:focus:invalid {
     outline: transparent;
-    border: 2px solid red;
+    border: 1px solid red;
 }
 
 main {
