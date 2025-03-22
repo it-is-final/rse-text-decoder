@@ -5,6 +5,7 @@
  * for more information.
  */
 
+'use strict';
 import { Language, GameVersion } from "./types";
 import { characterMaps, reverseCharacterMaps } from "./character-maps";
 
@@ -163,6 +164,8 @@ class BoxNames {
 const boxNames = new BoxNames();
 const boxNamesByteView =
     document.getElementById("box-name-byte-view") as HTMLTextAreaElement;
+const codeGeneratorView =
+    document.getElementById("code-gen-view") as HTMLTextAreaElement;
 const gameLanguageInput =
     document.getElementById("lang-input") as HTMLSelectElement;
 const gameVersionInput =
@@ -193,14 +196,26 @@ function changeAllBoxNames(sBoxNames: string[]) {
     }
 }
 
-function updateByteView(newByteView: Uint8Array<ArrayBuffer>[]) {
-    boxNamesByteView.value = newByteView.map(
+function updateByteView(bytes: Uint8Array<ArrayBuffer>[]) {
+    boxNamesByteView.value = bytes.map(
         row => (
             [...row].map(
                 chr => chr.toString(16).toUpperCase().padStart(2, "0")
             ).join(" ")
         )
     ).join("\n");
+}
+
+function updateCodeGenView(
+    bytes: Uint8Array<ArrayBuffer>[]
+) {
+    const a = bytes.map(row => [...row]).flat();
+    const l: string[] = [];
+    for (let i = 0; i < (a.length - (a.length % 4)); i += 4) {
+        const x = a[i] | a[i+1] << 8 | a[i+2] << 16 | a[i+3] << 24;
+        l.push(("0x" + (x >>> 0).toString(16).toUpperCase().padStart(8, "0")));
+    }
+    codeGeneratorView.value = l.join("\n");
 }
 
 function setGameLanguage(this: HTMLOptionElement) {
@@ -230,6 +245,28 @@ function setGameVersion(this: HTMLOptionElement) {
     changeAllBoxNames(boxNames.toStringNames(gameVersion, gameLanguage));
 }
 
+function setActiveTab(this: HTMLButtonElement, tabContentId: string) {
+    const tabs = (
+        document.getElementsByClassName("tablinks") as
+        HTMLCollectionOf<HTMLButtonElement>
+    );
+    const tabcontents = (
+        document.getElementsByClassName("tabcontent") as
+        HTMLCollectionOf<HTMLDivElement>
+    );
+    for (const tabcontent of tabcontents) {
+        tabcontent.style.display = "none";
+    }
+    for (const tab of tabs) {
+        tab.classList.remove("active");
+    }
+    this.classList.add("active");
+    (
+        document.getElementById(tabContentId) as
+        HTMLDivElement
+    ).style.display = "block";
+}
+
 gameLanguageInput.addEventListener("input", setGameLanguage);
 gameVersionInput.addEventListener("input", setGameVersion);
 
@@ -239,6 +276,7 @@ for (const [i, boxNameInput] of boxNameInputs.entries()) {
             boxNames.editBoxNameFromString(i, this.value, gameVersion, gameLanguage);
             this.setCustomValidity(""); // Blank error message marks field as valid
             updateByteView(boxNames.toByteView());
+            updateCodeGenView(boxNames.toByteView());
         } catch (e) {
             this.setCustomValidity(e);
         }
@@ -266,13 +304,35 @@ boxNamesByteView.addEventListener("input", function () {
     boxNames.fromByteView(newByteView);
     changeAllBoxNames(boxNames.toStringNames(gameVersion, gameLanguage));
     updateByteView(boxNames.toByteView());
+    updateCodeGenView(boxNames.toByteView());
     this.selectionStart = cursePosition;
     this.selectionEnd = cursePosition;
-})
+});
+
+(document.getElementById("raw-view-tab") as HTMLButtonElement).addEventListener(
+    "click", function () {
+        setActiveTab.apply(this, ["raw-view-tab-panel"]);
+    }
+);
+(document.getElementById("uint-view-tab") as HTMLButtonElement).addEventListener(
+    "click", function () {
+        setActiveTab.apply(this, ["uint-view-tab-panel"]);
+    }
+);
+(document.getElementById("code-gen-view-tab") as HTMLButtonElement).addEventListener(
+    "click", function () {
+        setActiveTab.apply(this, ["code-gen-view-tab-panel"]);
+    }
+);
 
 window.onload = () => {
     setGameLanguage.apply(gameLanguageInput);
     setGameVersion.apply(gameVersionInput);
     changeAllBoxNames(boxNames.toStringNames(gameVersion, gameLanguage));
     updateByteView(boxNames.toByteView());
+    updateCodeGenView(boxNames.toByteView());
+    setActiveTab.apply(
+        (document.getElementById("raw-view-tab") as HTMLButtonElement),
+        ["raw-view-tab-panel"],
+    )
 }

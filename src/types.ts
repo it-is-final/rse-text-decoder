@@ -5,6 +5,8 @@
  * for more information.
  */
 
+'use strict';
+
 export type GameVersion =
     | "RS" // Ruby
     | "FRLG" // FireRed

@@ -5,6 +5,8 @@
  * for more information.
  */
 
+'use strict';
+
 import { languageToCharMapMap, reverseToCharMapMap } from "./types";
 
 const japaneseMap = new Map([
