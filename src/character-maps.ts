@@ -248,7 +248,7 @@ export const characterMaps: languageToCharMapMap = {
 }
 
 const reverseJapaneseMap = new Map([
-    [" ", 0x0], 
+    ["　", 0x0], 
     ["あ", 0x1], ["い", 0x2], ["う", 0x3], ["え", 0x4], ["お", 0x5], 
     ["か", 0x6], ["き", 0x7], ["く", 0x8], ["け", 0x9], ["こ", 0xa], 
     ["さ", 0xb], ["し", 0xc], ["す", 0xd], ["せ", 0xe], ["そ", 0xf], 
