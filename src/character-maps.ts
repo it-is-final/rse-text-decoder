@@ -5,7 +5,7 @@
  * for more information.
  */
 
-import { GameVersion, Language, languageToCharMapMap, reverseToCharMapMap } from "./types";
+import { languageToCharMapMap, reverseToCharMapMap } from "./types";
 
 const japaneseMap = new Map([
     [0x0, "　"], 
@@ -315,7 +315,7 @@ const reverseJapaneseMap = new Map([
     ["0", 0xA1], ["1", 0xA2], ["2", 0xA3], ["3", 0xA4], ["4", 0xA5],
     ["5", 0xA6], ["6", 0xA7], ["7", 0xA8], ["8", 0xA9], ["9", 0xAA],
     ["!", 0xAB], ["?", 0xAC], ["¥", 0xB7],
-    ["-", 0xAE], ["–", 0xAE], [".", 0xB8],
+    ["-", 0xAE], ["–", 0xAE], ["…", 0xB0], [".", 0xB8],
     ["A", 0xBB], ["B", 0xBC], ["C", 0xBD], ["D", 0xBE], ["E", 0xBF],
     ["F", 0xC0], ["G", 0xC1], ["H", 0xC2], ["I", 0xC3], ["J", 0xC4],
     ["K", 0xC5], ["L", 0xC6], ["M", 0xC7], ["N", 0xC8], ["O", 0xC9],
@@ -327,7 +327,7 @@ const reverseJapaneseMap = new Map([
     ["k", 0xDF], ["l", 0xE0], ["m", 0xE1], ["n", 0xE2], ["o", 0xE3],
     ["p", 0xE4], ["q", 0xE5], ["r", 0xE6], ["s", 0xE7], ["t", 0xE8],
     ["u", 0xE9], ["v", 0xEA], ["w", 0xEB], ["x", 0xEC], ["y", 0xED],
-    ["z", 0xEE], [":", 0xF0],
+    ["z", 0xEE], [":", 0xF0]
 
 ]) as ReadonlyMap<string, number>;
 
@@ -443,96 +443,4 @@ export const reverseCharacterMaps: reverseToCharMapMap = {
     "ITA": reverseEnglishMap,
     "GER": reverseGermanMap,
     "SPA": reverseEnglishMap
-}
-
-const japaneseFullWidthMap = {
-    " ": "　",
-    "0": "０", "1": "１", "2": "２", "3": "３", "4": "４",
-    "5": "５", "6": "６", "7": "７", "8": "８", "9": "９",
-    "A": "Ａ", "B": "Ｂ", "C": "Ｃ", "D": "Ｄ", "E": "Ｅ",
-    "F": "Ｆ", "G": "Ｇ", "H": "Ｈ", "I": "Ｉ", "J": "Ｊ",
-    "K": "Ｋ", "L": "Ｌ", "M": "Ｍ", "N": "Ｎ", "O": "Ｏ",
-    "P": "Ｐ", "Q": "Ｑ", "R": "Ｒ", "S": "Ｓ", "T": "Ｔ",
-    "U": "Ｕ", "V": "Ｖ", "W": "Ｗ", "X": "Ｘ", "Y": "Ｙ",
-    "Z": "Ｚ",
-    "a": "ａ", "b": "ｂ", "c": "ｃ", "d": "ｄ", "e": "ｅ",
-    "f": "ｆ", "g": "ｇ", "h": "ｈ", "i": "ｉ", "j": "ｊ",
-    "k": "ｋ", "l": "ｌ", "m": "ｍ", "n": "ｎ", "o": "ｏ",
-    "p": "ｐ", "q": "ｑ", "r": "ｒ", "s": "ｓ", "t": "ｔ",
-    "u": "ｕ", "v": "ｖ", "w": "ｗ", "x": "ｘ", "y": "ｙ",
-    "z": "ｚ",
-    "!": "！", "?": "？", ":": "：", "…": "‥", "-": "ー",
-    "–": "ー", ".": "．"
-}
-
-const rJapaneseFullWidthMap = {
-    "　": " ",
-    "０": "0", "１": "1", "２": "2", "３": "3", "４": "4",
-    "５": "5", "６": "6", "７": "7", "８": "8", "９": "9",
-    "Ａ": "A", "Ｂ": "B", "Ｃ": "C", "Ｄ": "D", "Ｅ": "E",
-    "Ｆ": "F", "Ｇ": "G", "Ｈ": "H", "Ｉ": "I", "Ｊ": "J",
-    "Ｋ": "K", "Ｌ": "L", "Ｍ": "M", "Ｎ": "N", "Ｏ": "O",
-    "Ｐ": "P", "Ｑ": "Q", "Ｒ": "R", "Ｓ": "S", "Ｔ": "T",
-    "Ｕ": "U", "Ｖ": "V", "Ｗ": "W", "Ｘ": "X", "Ｙ": "Y",
-    "Ｚ": "Z",
-    "ａ": "a", "ｂ": "b", "ｃ": "c", "ｄ": "d", "ｅ": "e",
-    "ｆ": "f", "ｇ": "g", "ｈ": "h", "ｉ": "i", "ｊ": "j",
-    "ｋ": "k", "ｌ": "l", "ｍ": "m", "ｎ": "n", "ｏ": "o",
-    "ｐ": "p", "ｑ": "q", "ｒ": "r", "ｓ": "s", "ｔ": "t",
-    "ｕ": "u", "ｖ": "v", "ｗ": "w", "ｘ": "x", "ｙ": "y",
-    "ｚ": "z",
-    "！": "!", "？": "?", "：": ":", "-": "ー", "‥": "…",
-    "．": "."
-}
-
-export const jpCharIndexRS = [
-    0x50,
-    0x7D,
-    0x7E,
-    0x7F,
-    0x80,
-    0x81,
-    0x82,
-    0x83,
-]
-
-export function convertToJPNFullWidth(input: string) {
-    // Because of regex, ? must be escaped via backslash
-    const fixedRegex = Object.keys(japaneseFullWidthMap).join('|').replace("?", "\\?");
-    const rEx = new RegExp(`(${ fixedRegex })`, 'gu');
-    return input.replace(rEx, (match) => japaneseFullWidthMap[match]);
-}
-
-export function convertJpnToStandard(input: string) {
-    const rEx = new RegExp(`(${ Object.keys(rJapaneseFullWidthMap).join('|') })`, 'gu');
-    return input.replace(rEx, (match) => rJapaneseFullWidthMap[match]);
-}
-
-export function convertToRsElipsis(input: string) {
-    return input.replace("…", "‥");
-}
-
-export function convertToFrlgeElipsis(input: string) {
-    return input.replace("‥", "…");
-}
-
-export function localizeString(
-    input: string,
-    gameVersion: GameVersion,
-    language: Language
-) {
-    const conversionMap: Map<string, string> = new Map<string, string>();
-    // All character maps use 3 dot elipsis by default
-    switch (gameVersion) {
-        case "RS":
-            conversionMap.set("…", "‥");
-            break;
-        case "E":
-            if (language === "JPN") {
-                conversionMap.set("…", "‥");
-            }
-            break;
-        case "FRLG":
-            break;
-    }
 }

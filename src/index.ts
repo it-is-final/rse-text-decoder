@@ -6,7 +6,7 @@
  */
 
 import { Language, GameVersion } from "./types";
-import { characterMaps, convertJpnToStandard, convertToFrlgeElipsis, reverseCharacterMaps } from "./character-maps";
+import { characterMaps, reverseCharacterMaps } from "./character-maps";
 
 class BoxNames {
     // Initialised with EOF (0xFF) terminators at the end
@@ -33,10 +33,10 @@ class BoxNames {
         const characterMap = new Map(characterMaps[language]);
         switch (gameVersion) {
             case "RS":
-                characterMap.set(0xb0, "‥");
-                characterMap.set(0xf7, "↑");
-                characterMap.set(0xf8, "↓");
-                characterMap.set(0xf9, "←");
+                characterMap.set(0xB0, "‥");
+                characterMap.set(0xF7, "↑");
+                characterMap.set(0xF8, "↓");
+                characterMap.set(0xF9, "←");
                 if (gameLanguage !== "JPN") {
                     characterMap.delete(0x50);
                     characterMap.delete(0x7D);
@@ -88,20 +88,42 @@ class BoxNames {
 
     editBoxNameFromString(
         boxNNumber: number,
-        sBoxName: string,
+        sInput: string,
+        gameVersion: GameVersion,
         language: Language
     ) {
-        let _sBoxName: string;
-        // Normalise inputs, makes processing easier
-        if (language === "JPN") {
-            _sBoxName = convertJpnToStandard(sBoxName);
-        } else {
-            _sBoxName = convertToFrlgeElipsis(sBoxName);
+        const referenceMap = new Map(characterMaps[language]);
+        const normalizeMap = new Map(reverseCharacterMaps[language]);
+        if (gameVersion === "RS") {
+            normalizeMap.set("↑", 0xF7);
+            normalizeMap.set("↓", 0xF8);
+            normalizeMap.set("←", 0xF9);
+            if (gameLanguage !== "JPN") {
+                normalizeMap.delete("▯")
+                normalizeMap.delete("*")
+                referenceMap.delete(0x50);
+                referenceMap.delete(0x7D);
+                referenceMap.delete(0x7E);
+                referenceMap.delete(0x7F);
+                referenceMap.delete(0x80);
+                referenceMap.delete(0x81);
+                referenceMap.delete(0x82);
+                referenceMap.delete(0x83);
+                for (let i = 0xA; i <= 0x9F; i++) {
+                    if (!referenceMap.has(i)) {
+                        normalizeMap.set(characterMaps["JPN"].get(i), i);
+                    }
+                }
+            }
+        }
+        if (gameVersion === "FRLG") {
+            normalizeMap.delete("▯")
+            normalizeMap.delete("*")
         }
         
         // Length of the box name is always 9
         for (let i = 0; i < 9; i++) {
-            const c = _sBoxName.charAt(i);
+            const c = sInput.charAt(i);
             if (c === "") {
                 this.#boxNames[boxNNumber][i] = 0xFF;
             } else if (reverseCharacterMaps[language].has(c)) {
@@ -213,7 +235,7 @@ gameVersionInput.addEventListener("input", setGameVersion);
 for (const [i, boxNameInput] of boxNameInputs.entries()) {
     boxNameInput.addEventListener("input", function () {
         try {
-            boxNames.editBoxNameFromString(i, this.value, gameLanguage);
+            boxNames.editBoxNameFromString(i, this.value, gameVersion, gameLanguage);
             this.setCustomValidity(""); // Blank error message marks field as valid
             updateByteView(boxNames.toByteView());
         } catch (e) {
