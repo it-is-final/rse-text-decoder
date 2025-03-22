@@ -93,14 +93,14 @@ class BoxNames {
         language: Language
     ) {
         const referenceMap = new Map(characterMaps[language]);
-        const normalizeMap = new Map(reverseCharacterMaps[language]);
+        const reverseCharMap = new Map(reverseCharacterMaps[language]);
         if (gameVersion === "RS") {
-            normalizeMap.set("↑", 0xF7);
-            normalizeMap.set("↓", 0xF8);
-            normalizeMap.set("←", 0xF9);
+            reverseCharMap.set("↑", 0xF7);
+            reverseCharMap.set("↓", 0xF8);
+            reverseCharMap.set("←", 0xF9);
             if (gameLanguage !== "JPN") {
-                normalizeMap.delete("▯")
-                normalizeMap.delete("*")
+                reverseCharMap.delete("▯")
+                reverseCharMap.delete("*")
                 referenceMap.delete(0x50);
                 referenceMap.delete(0x7D);
                 referenceMap.delete(0x7E);
@@ -111,14 +111,14 @@ class BoxNames {
                 referenceMap.delete(0x83);
                 for (let i = 0xA; i <= 0x9F; i++) {
                     if (!referenceMap.has(i)) {
-                        normalizeMap.set(characterMaps["JPN"].get(i), i);
+                        reverseCharMap.set(characterMaps["JPN"].get(i), i);
                     }
                 }
             }
         }
         if (gameVersion === "FRLG") {
-            normalizeMap.delete("▯")
-            normalizeMap.delete("*")
+            reverseCharMap.delete("▯")
+            reverseCharMap.delete("*")
         }
         
         // Length of the box name is always 9
@@ -126,8 +126,8 @@ class BoxNames {
             const c = sInput.charAt(i);
             if (c === "") {
                 this.#boxNames[boxNNumber][i] = 0xFF;
-            } else if (reverseCharacterMaps[language].has(c)) {
-                this.#boxNames[boxNNumber][i] = reverseCharacterMaps[language].get(c);
+            } else if (reverseCharMap.has(c)) {
+                this.#boxNames[boxNNumber][i] = reverseCharMap.get(c);
             } else {
                 throw new Error("Invalid character");
             }
