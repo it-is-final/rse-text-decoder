@@ -58,8 +58,46 @@
                 <label for="box-14-input">Box 14:</label>
                 <input id="box-14-input" type="text" maxlength="9" size="16" class="box-name-input" />
             </div>
-            <label id="box-name-byte-view-label" for="box-name-byte-view" style="display: none;"></label>
-            <textarea id="box-name-byte-view" cols="26" rows="14" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
+            <div class="tab-view">
+                <div class="tab">
+                    <button class="tablinks" id="raw-view-tab" type="button">
+                        Raw
+                    </button>
+                    <button class="tablinks" id="uint-view-tab" type="button">
+                        uint
+                    </button>
+                    <button class="tablinks" id="code-gen-view-tab" type="button">
+                        CodeGenerator
+                    </button>
+                </div>
+                <div id="raw-view-tab-panel" class="tabcontent">
+                    <textarea id="box-name-byte-view" cols="26" rows="14" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
+                </div>
+                <div id="uint-view-tab-panel" class="tabcontent">
+                    <textarea id="uint-view" cols="26" rows="14" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" readonly></textarea>
+                    <div id="uint-view-params-panel">
+                        <label for="u16-radio">
+                            <input class="uint-view-params" id="u16-radio" name="size" type="radio" checked>
+                            u16
+                        </label>
+                        <label for="u32-radio">
+                            <input class="uint-view-params" id="u32-radio" name="size" type="radio">
+                            u32
+                        </label>
+                        <label for="little-endian-radio">
+                            <input class="uint-view-params" id="little-endian-radio" name="endianness" type="radio" checked>
+                            little-endian
+                        </label>
+                        <label for="big-endian-radio">
+                            <input class="uint-view-params" id="big-endian-radio" name="endianness" type="radio">
+                            big-endian
+                        </label>
+                    </div>
+                </div>
+                <div id="code-gen-view-tab-panel" class="tabcontent">
+                    <textarea id="code-gen-view" cols="26" rows="14" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" readonly></textarea>
+                </div>
+            </div>
         </div>
     </main>
     <footer>
