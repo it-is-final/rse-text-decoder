@@ -92,3 +92,9 @@ border-top: none;
     grid-template-columns: auto auto;
     gap: 0.25em;
 }
+
+#tab-view {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+}
