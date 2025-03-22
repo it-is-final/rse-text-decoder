@@ -12,13 +12,36 @@ export type GameVersion =
     | "FRLG" // FireRed
     | "E" // Emerald
 
-export type Language = 
+export type GameLanguage = 
     | "JPN" 
     | "ENG" 
     | "FRA" 
     | "ITA" 
     | "GER" 
     | "SPA"
+
+export function isGameVersion(
+    version: GameVersion | string,
+): version is GameVersion {
+    return (
+        version === "RS"
+        || version === "FRLG"
+        || version === "E"
+    );
+}
+
+export function isGameLanguage(
+    language: GameLanguage | string,
+): language is GameLanguage {
+    return (
+        language === "JPN"
+        || language === "ENG"
+        || language === "FRA"
+        || language === "ITA"
+        || language === "GER"
+        || language === "SPA"
+    );
+}
 
 export interface languageToCharMapMap {
     JPN: ReadonlyMap<number, string>,

@@ -74,17 +74,17 @@
                     <textarea id="box-name-byte-view" cols="26" rows="14" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
                 </div>
                 <div id="uint-view-tab-panel" class="tabcontent">
-                    <textarea id="uint-view" cols="26" rows="14" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
+                    <textarea id="uint-view" cols="26" rows="14" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" readonly></textarea>
                     <br>
-                    <input id="u16-radio" name="size" type="radio" checked>
+                    <input class="uint-view-params" id="u16-radio" name="size" type="radio" checked>
                     <label for="u16-radio">u16</label>
-                    <input id="u32-radio" name="size" type="radio">
+                    <input class="uint-view-params" id="u32-radio" name="size" type="radio">
                     <label for="u32-radio">u32</label>
                     <br>
-                    <input id="big-endian-radio" name="endianness" type="radio" checked>
-                    <label for="big-endian-radio">big-endian</label>
-                    <input id="little-endian-radio" name="endianness" type="radio">
+                    <input class="uint-view-params" id="little-endian-radio" name="endianness" type="radio" checked>
                     <label for="little-endian-radio">little-endian</label>
+                    <input class="uint-view-params" id="big-endian-radio" name="endianness" type="radio">
+                    <label for="big-endian-radio">big-endian</label>
                 </div>
                 <div id="code-gen-view-tab-panel" class="tabcontent">
                     <textarea id="code-gen-view" cols="26" rows="14" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" readonly></textarea>
