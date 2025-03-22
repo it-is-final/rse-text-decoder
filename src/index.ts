@@ -210,6 +210,39 @@ document.addEventListener("DOMContentLoaded", function () {
             [document.querySelector<HTMLDivElement>("#code-gen-view-tab-panel")]
         );
     });
+
+    document.querySelector<HTMLSelectElement>("#lang-input")
+    .addEventListener(
+        "input", () => {
+            const v = getVersionFromSelect();
+            const l = getLangFromSelect();
+            if (!isGameVersion(v)) {
+                return;
+            }
+            if (!isGameLanguage(l)) {
+                return;
+            }
+            updateBoxNameInputs(v, l);
+            updateByteViews();
+        }
+    );
+    
+    document.querySelector<HTMLSelectElement>("#game-version-input")
+    .addEventListener(
+        "input", () => {
+            const v = getVersionFromSelect();
+            const l = getLangFromSelect();
+            if (!isGameVersion(v)) {
+                return;
+            }
+            if (!isGameLanguage(l)) {
+                return;
+            }
+            updateBoxNameInputs(v, l);
+            updateByteViews();
+        }
+    );
+
     (() => {
         const v = getVersionFromSelect();
         const l = getLangFromSelect();
