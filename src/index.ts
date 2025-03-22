@@ -5,20 +5,8 @@
  * for more information.
  */
 
-import { characterMaps, convertJpnToStandard, convertToFrlgeElipsis, convertToJPNFullWidth, convertToRsElipsis, reverseCharacterMaps } from "./character-maps";
-
-type GameVersion =
-    | "RS" // Ruby
-    | "FRLG" // FireRed
-    | "E" // Emerald
-
-type Language = 
-    | "JPN" 
-    | "ENG" 
-    | "FRA" 
-    | "ITA" 
-    | "GER" 
-    | "SPA"
+import { Language, GameVersion } from "./types";
+import { characterMaps, convertJpnToStandard, convertToFrlgeElipsis, reverseCharacterMaps } from "./character-maps";
 
 class BoxNames {
     // Initialised with EOF (0xFF) terminators at the end
@@ -40,31 +28,57 @@ class BoxNames {
     ]);
 
     toStringNames(gameVersion: GameVersion, language: Language) {
-        let sBoxNames = this.#boxNames.map(
-            boxName => [...boxName].map(
-                bNameChrIdx => characterMaps[language].get(bNameChrIdx) ?? " "
-            ).join("").split("\0")[0]
-        );
-        switch (language) {
-            case "JPN":
-                sBoxNames = sBoxNames.map(convertToJPNFullWidth);
-                if (
-                    gameVersion === "RS"
-                    || gameVersion === "E"
-                ) {
-                    sBoxNames = sBoxNames.map(convertToRsElipsis);
+        // The character maps are based on what is found in Emerald version
+        // As a result, modifications must be made for R/S and FR/LG
+        const characterMap = new Map(characterMaps[language]);
+        switch (gameVersion) {
+            case "RS":
+                characterMap.set(0xb0, "‥");
+                characterMap.set(0xf7, "↑");
+                characterMap.set(0xf8, "↓");
+                characterMap.set(0xf9, "←");
+                if (gameLanguage !== "JPN") {
+                    characterMap.delete(0x50);
+                    characterMap.delete(0x7D);
+                    characterMap.delete(0x7E);
+                    characterMap.delete(0x7F);
+                    characterMap.delete(0x80);
+                    characterMap.delete(0x81);
+                    characterMap.delete(0x82);
+                    characterMap.delete(0x83);
+                    for (let i = 0xA; i <= 0x9F; i++) {
+                        if (!characterMap.has(i)) {
+                            // Fill with Japanese characters
+                            characterMap.set(
+                                i, characterMaps["JPN"].get(i) ?? " "
+                            );
+                        }
+                    }
                 }
                 break;
-            case "ENG":
-            case "FRA":
-            case "ITA":
-            case "GER":
-            case "SPA":
-                if (gameVersion === "RS") {
-                    sBoxNames = sBoxNames.map(convertToRsElipsis);
+            case "FRLG":
+                if (gameLanguage === "JPN") {
+                    characterMap.set(0xb0, "…")
                 }
+                if (gameLanguage !== "JPN") {
+                    characterMap.delete(0x50);
+                    characterMap.delete(0x7D);
+                    characterMap.delete(0x7E);
+                    characterMap.delete(0x7F);
+                    characterMap.delete(0x80);
+                    characterMap.delete(0x81);
+                    characterMap.delete(0x82);
+                    characterMap.delete(0x83);
+                }
+                break;
+            case "E":
                 break;
         }
+        const sBoxNames = this.#boxNames.map(
+            boxName => [...boxName].map(
+                bNameChrIdx => characterMap.get(bNameChrIdx) ?? " "
+            ).join("").split("\0")[0]
+        );
         return sBoxNames;
     }
 

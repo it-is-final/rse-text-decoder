@@ -5,23 +5,7 @@
  * for more information.
  */
 
-interface languageToCharMapMap {
-    JPN: ReadonlyMap<number, string>,
-    ENG: ReadonlyMap<number, string>,
-    FRA: ReadonlyMap<number, string>,
-    ITA: ReadonlyMap<number, string>,
-    GER: ReadonlyMap<number, string>,
-    SPA: ReadonlyMap<number, string>,
-}
-
-interface reverseToCharMapMap {
-    JPN: ReadonlyMap<string, number>,
-    ENG: ReadonlyMap<string, number>,
-    FRA: ReadonlyMap<string, number>,
-    ITA: ReadonlyMap<string, number>,
-    GER: ReadonlyMap<string, number>,
-    SPA: ReadonlyMap<string, number>,
-}
+import { GameVersion, Language, languageToCharMapMap, reverseToCharMapMap } from "./types";
 
 const japaneseMap = new Map([
     [0x0, " "], 
@@ -61,27 +45,29 @@ const japaneseMap = new Map([
     [0x96, "バ"], [0x97, "ビ"], [0x98, "ブ"], [0x99, "ベ"], [0x9a, "ボ"],
     [0x9b, "パ"], [0x9c, "ピ"], [0x9d, "プ"], [0x9e, "ペ"], [0x9f, "ポ"],
     [0xa0, "ッ"],
-    [0xa1, "0"],
-    [0xa2, "1"], [0xa3, "2"], [0xa4, "3"],
-    [0xa5, "4"], [0xa6, "5"], [0xa7, "6"],
-    [0xa8, "7"], [0xa9, "8"], [0xaa, "9"],
-    [0xab, "!"], [0xac, "?"],
-    [0xad, "。"], [0xae, "ー"], [0xaf, "・"], [0xb0, "…"],
+    [0xa1, "０"],
+    [0xa2, "１"], [0xa3, "２"], [0xa4, "３"],
+    [0xa5, "４"], [0xa6, "５"], [0xa7, "６"],
+    [0xa8, "７"], [0xa9, "８"], [0xaa, "９"],
+    [0xab, "！"], [0xac, "？"],
+    [0xad, "。"], [0xae, "ー"], [0xaf, "・"], [0xb0, "‥"],
     [0xb1, "『"], [0xb2, "』"], [0xb3, "「"], [0xb4, "」"],
     [0xb5, "♂"], [0xb6, "♀"],
-    [0xb7, "¥"], [0xb8, "."], [0xb9, "×"],
-    [0xba, "/"],
-    [0xbb, "A"], [0xbc, "B"], [0xbd, "C"], [0xbe, "D"], [0xbf, "E"], [0xc0, "F"],
-    [0xc1, "G"], [0xc2, "H"], [0xc3, "I"], [0xc4, "J"], [0xc5, "K"], [0xc6, "L"],
-    [0xc7, "M"], [0xc8, "N"], [0xc9, "O"], [0xca, "P"], [0xcb, "Q"], [0xcc, "R"],
-    [0xcd, "S"], [0xce, "T"], [0xcf, "U"], [0xd0, "V"], [0xd1, "W"], [0xd2, "X"],
-    [0xd3, "Y"], [0xd4, "Z"],
-    [0xd5, "a"], [0xd6, "b"], [0xd7, "c"], [0xd8, "d"], [0xd9, "e"], [0xda, "f"],
-    [0xdb, "g"], [0xdc, "h"], [0xdd, "i"], [0xde, "j"], [0xdf, "k"], [0xe0, "l"],
-    [0xe1, "m"], [0xe2, "n"], [0xe3, "o"], [0xe4, "p"], [0xe5, "q"], [0xe6, "r"],
-    [0xe7, "s"], [0xe8, "t"], [0xe9, "u"], [0xea, "v"], [0xeb, "w"], [0xec, "x"],
-    [0xed, "y"], [0xee, "z"],
-    [0xef, "►"], [0xf0, ":"],
+    [0xb7, "円"], [0xb8, "．"], [0xb9, "×"],
+    [0xba, "／"],
+    [0xbb, "Ａ"], [0xbc, "Ｂ"], [0xbd, "Ｃ"], [0xbe, "Ｄ"], [0xbf, "Ｅ"],
+    [0xc0, "Ｆ"], [0xc1, "Ｇ"], [0xc2, "Ｈ"], [0xc3, "Ｉ"], [0xc4, "Ｊ"],
+    [0xc5, "Ｋ"], [0xc6, "Ｌ"], [0xc7, "Ｍ"], [0xc8, "Ｎ"], [0xc9, "Ｏ"],
+    [0xca, "Ｐ"], [0xcb, "Ｑ"], [0xcc, "Ｒ"], [0xcd, "Ｓ"], [0xce, "Ｔ"],
+    [0xcf, "Ｕ"], [0xd0, "Ｖ"], [0xd1, "Ｗ"], [0xd2, "Ｘ"], [0xd3, "Ｙ"],
+    [0xd4, "Ｚ"],
+    [0xd5, "ａ"], [0xd6, "ｂ"], [0xd7, "ｃ"], [0xd8, "ｄ"], [0xd9, "ｅ"],
+    [0xda, "ｆ"], [0xdb, "ｇ"], [0xdc, "ｈ"], [0xdd, "ｉ"], [0xde, "ｊ"],
+    [0xdf, "ｋ"], [0xe0, "ｌ"], [0xe1, "ｍ"], [0xe2, "ｎ"], [0xe3, "ｏ"],
+    [0xe4, "ｐ"], [0xe5, "ｑ"], [0xe6, "ｒ"], [0xe7, "ｓ"], [0xe8, "ｔ"],
+    [0xe9, "ｕ"], [0xea, "ｖ"], [0xeb, "ｗ"], [0xec, "ｘ"], [0xed, "ｙ"],
+    [0xee, "ｚ"],
+    [0xef, "►"], [0xf0, "："],
     [0xf1, "Ä"], [0xf2, "Ö"], [0xf3, "Ü"],
     [0xf4, "ä"], [0xf5, "ö"], [0xf6, "ü"],
     [0xf7, " "], [0xf8, " "], [0xf9, " "],
@@ -301,27 +287,29 @@ const reverseJapaneseMap = new Map([
     ["バ", 0x96], ["ビ", 0x97], ["ブ", 0x98], ["ベ", 0x99], ["ボ", 0x9a],
     ["パ", 0x9b], ["ピ", 0x9c], ["プ", 0x9d], ["ペ", 0x9e], ["ポ", 0x9f],
     ["ッ", 0xa0],
-    ["0", 0xa1],
-    ["1", 0xa2], ["2", 0xa3], ["3", 0xa4],
-    ["4", 0xa5], ["5", 0xa6], ["6", 0xa7],
-    ["7", 0xa8], ["8", 0xa9], ["9", 0xaa],
-    ["!", 0xab], ["?", 0xac],
-    ["。", 0xad], ["ー", 0xae], ["・", 0xaf], ["…", 0xb0],
+    ["０", 0xa1], ["１", 0xa2], ["２", 0xa3],
+    ["３", 0xa4], ["４", 0xa5], ["５", 0xa6],
+    ["６", 0xa7], ["７", 0xa8], ["８", 0xa9],
+    ["９", 0xaa],
+    ["！", 0xab], ["？", 0xac],
+    ["。", 0xad], ["ー", 0xae], ["・", 0xaf], ["‥", 0xb0],
     ["『", 0xb1], ["』", 0xb2], ["「", 0xb3], ["」", 0xb4],
     ["♂", 0xb5], ["♀", 0xb6],
-    ["¥", 0xb7], [".", 0xb8], ["×", 0xb9],
-    ["/", 0xba],
-    ["A", 0xbb], ["B", 0xbc], ["C", 0xbd], ["D", 0xbe], ["E", 0xbf], ["F", 0xc0],
-    ["G", 0xc1], ["H", 0xc2], ["I", 0xc3], ["J", 0xc4], ["K", 0xc5], ["L", 0xc6],
-    ["M", 0xc7], ["N", 0xc8], ["O", 0xc9], ["P", 0xca], ["Q", 0xcb], ["R", 0xcc],
-    ["S", 0xcd], ["T", 0xce], ["U", 0xcf], ["V", 0xd0], ["W", 0xd1], ["X", 0xd2],
-    ["Y", 0xd3], ["Z", 0xd4],
-    ["a", 0xd5], ["b", 0xd6], ["c", 0xd7], ["d", 0xd8], ["e", 0xd9], ["f", 0xda],
-    ["g", 0xdb], ["h", 0xdc], ["i", 0xdd], ["j", 0xde], ["k", 0xdf], ["l", 0xe0],
-    ["m", 0xe1], ["n", 0xe2], ["o", 0xe3], ["p", 0xe4], ["q", 0xe5], ["r", 0xe6],
-    ["s", 0xe7], ["t", 0xe8], ["u", 0xe9], ["v", 0xea], ["w", 0xeb], ["x", 0xec],
-    ["y", 0xed], ["z", 0xee],
-    ["►", 0xef], [":", 0xf0],
+    ["円", 0xb7], ["．", 0xb8], ["×", 0xb9],
+    ["／", 0xba],
+    ["Ａ", 0xbb], ["Ｂ", 0xbc], ["Ｃ", 0xbd], ["Ｄ", 0xbe], ["Ｅ", 0xbf],
+    ["Ｆ", 0xc0], ["Ｇ", 0xc1], ["Ｈ", 0xc2], ["Ｉ", 0xc3], ["Ｊ", 0xc4],
+    ["Ｋ", 0xc5], ["Ｌ", 0xc6], ["Ｍ", 0xc7], ["Ｎ", 0xc8], ["Ｏ", 0xc9],
+    ["Ｐ", 0xca], ["Ｑ", 0xcb], ["Ｒ", 0xcc], ["Ｓ", 0xcd], ["Ｔ", 0xce],
+    ["Ｕ", 0xcf], ["Ｖ", 0xd0], ["Ｗ", 0xd1], ["Ｘ", 0xd2], ["Ｙ", 0xd3],
+    ["Ｚ", 0xd4],
+    ["ａ", 0xd5], ["ｂ", 0xd6], ["ｃ", 0xd7], ["ｄ", 0xd8], ["ｅ", 0xd9],
+    ["ｆ", 0xda], ["ｇ", 0xdb], ["ｈ", 0xdc], ["ｉ", 0xdd], ["ｊ", 0xde],
+    ["ｋ", 0xdf], ["ｌ", 0xe0], ["ｍ", 0xe1], ["ｎ", 0xe2], ["ｏ", 0xe3],
+    ["ｐ", 0xe4], ["ｑ", 0xe5], ["ｒ", 0xe6], ["ｓ", 0xe7], ["ｔ", 0xe8],
+    ["ｕ", 0xe9], ["ｖ", 0xea], ["ｗ", 0xeb], ["ｘ", 0xec], ["ｙ", 0xed],
+    ["ｚ", 0xee],
+    ["►", 0xef], ["：", 0xf0],
     ["Ä", 0xf1], ["Ö", 0xf2], ["Ü", 0xf3],
     ["ä", 0xf4], ["ö", 0xf5], ["ü", 0xf6],
     ["\0", 0xff],
@@ -438,8 +426,6 @@ export const reverseCharacterMaps: reverseToCharMapMap = {
     "SPA": reverseEnglishMap
 }
 
-// Because of regex, ? must be escaped via backslash
-
 const japaneseFullWidthMap = {
     " ": "　",
     "0": "０", "1": "１", "2": "２", "3": "３", "4": "４",
@@ -456,7 +442,8 @@ const japaneseFullWidthMap = {
     "p": "ｐ", "q": "ｑ", "r": "ｒ", "s": "ｓ", "t": "ｔ",
     "u": "ｕ", "v": "ｖ", "w": "ｗ", "x": "ｘ", "y": "ｙ",
     "z": "ｚ",
-    "!": "！", "?": "？", ":": "："
+    "!": "！", "?": "？", ":": "：", "…": "‥", "-": "ー",
+    "–": "ー", ".": "．"
 }
 
 const rJapaneseFullWidthMap = {
@@ -475,10 +462,12 @@ const rJapaneseFullWidthMap = {
     "ｐ": "p", "ｑ": "q", "ｒ": "r", "ｓ": "s", "ｔ": "t",
     "ｕ": "u", "ｖ": "v", "ｗ": "w", "ｘ": "x", "ｙ": "y",
     "ｚ": "z",
-    "！": "!", "？": "?", "：": ":", "-": "ー", "‥": "…"
+    "！": "!", "？": "?", "：": ":", "-": "ー", "‥": "…",
+    "．": "."
 }
 
 export function convertToJPNFullWidth(input: string) {
+    // Because of regex, ? must be escaped via backslash
     const fixedRegex = Object.keys(japaneseFullWidthMap).join('|').replace("?", "\\?");
     const rEx = new RegExp(`(${ fixedRegex })`, 'gu');
     return input.replace(rEx, (match) => japaneseFullWidthMap[match]);
@@ -495,4 +484,25 @@ export function convertToRsElipsis(input: string) {
 
 export function convertToFrlgeElipsis(input: string) {
     return input.replace("‥", "…");
+}
+
+export function localizeString(
+    input: string,
+    gameVersion: GameVersion,
+    language: Language
+) {
+    const conversionMap: Map<string, string> = new Map<string, string>();
+    // All character maps use 3 dot elipsis by default
+    switch (gameVersion) {
+        case "RS":
+            conversionMap.set("…", "‥");
+            break;
+        case "E":
+            if (language === "JPN") {
+                conversionMap.set("…", "‥");
+            }
+            break;
+        case "FRLG":
+            break;
+    }
 }
