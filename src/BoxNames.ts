@@ -3,21 +3,21 @@ import { characterMaps, reverseCharacterMaps } from "./character-maps";
 
 export class BoxNames {
     // Initialised with EOF (0xFF) terminators at the end
-    boxNames = Object.seal([
-        new Uint8Array([0, 0, 0, 0, 0, 0, 0, 0, 0xFF]),
-        new Uint8Array([0, 0, 0, 0, 0, 0, 0, 0, 0xFF]),
-        new Uint8Array([0, 0, 0, 0, 0, 0, 0, 0, 0xFF]),
-        new Uint8Array([0, 0, 0, 0, 0, 0, 0, 0, 0xFF]),
-        new Uint8Array([0, 0, 0, 0, 0, 0, 0, 0, 0xFF]),
-        new Uint8Array([0, 0, 0, 0, 0, 0, 0, 0, 0xFF]),
-        new Uint8Array([0, 0, 0, 0, 0, 0, 0, 0, 0xFF]),
-        new Uint8Array([0, 0, 0, 0, 0, 0, 0, 0, 0xFF]),
-        new Uint8Array([0, 0, 0, 0, 0, 0, 0, 0, 0xFF]),
-        new Uint8Array([0, 0, 0, 0, 0, 0, 0, 0, 0xFF]),
-        new Uint8Array([0, 0, 0, 0, 0, 0, 0, 0, 0xFF]),
-        new Uint8Array([0, 0, 0, 0, 0, 0, 0, 0, 0xFF]),
-        new Uint8Array([0, 0, 0, 0, 0, 0, 0, 0, 0xFF]),
-        new Uint8Array([0, 0, 0, 0, 0, 0, 0, 0, 0xFF]),
+    bytes = Object.seal([
+        0, 0, 0, 0, 0, 0, 0, 0, 0xFF,
+        0, 0, 0, 0, 0, 0, 0, 0, 0xFF,
+        0, 0, 0, 0, 0, 0, 0, 0, 0xFF,
+        0, 0, 0, 0, 0, 0, 0, 0, 0xFF,
+        0, 0, 0, 0, 0, 0, 0, 0, 0xFF,
+        0, 0, 0, 0, 0, 0, 0, 0, 0xFF,
+        0, 0, 0, 0, 0, 0, 0, 0, 0xFF,
+        0, 0, 0, 0, 0, 0, 0, 0, 0xFF,
+        0, 0, 0, 0, 0, 0, 0, 0, 0xFF,
+        0, 0, 0, 0, 0, 0, 0, 0, 0xFF,
+        0, 0, 0, 0, 0, 0, 0, 0, 0xFF,
+        0, 0, 0, 0, 0, 0, 0, 0, 0xFF,
+        0, 0, 0, 0, 0, 0, 0, 0, 0xFF,
+        0, 0, 0, 0, 0, 0, 0, 0, 0xFF,
     ]);
 
     getStringNames(gameVersion: GameVersion, language: GameLanguage) {
@@ -67,16 +67,15 @@ export class BoxNames {
             case "E":
                 break;
         }
-        const sBoxNames = this.boxNames.map(
-            boxName => [...boxName].map(
-                bNameChrIdx => characterMap.get(bNameChrIdx) ?? " "
-            ).join("").split("\0")[0]
-        );
+        const sBoxNames: string[] = [];
+        for (let i = 0; i < 14; i++) {
+            sBoxNames.push(
+                this.bytes.slice((i * 9), ((i + 1) * 9)).map(
+                    b => characterMap.get(b) ?? " "
+                ).join("").split("\0")[0]
+            );
+        }
         return sBoxNames;
-    }
-
-    getByteStream() {
-        return new Uint8Array(this.boxNames.flatMap((x) => [...x]));
     }
 
     setNameFromString(
@@ -119,9 +118,9 @@ export class BoxNames {
         for (let i = 0; i < 9; i++) {
             const c = sName.charAt(i);
             if (c === "") {
-                this.boxNames[boxIndex][i] = 0xFF;
+                this.bytes[(boxIndex * 9) + i] = 0xFF;
             } else if (reverseCharMap.has(c)) {
-                this.boxNames[boxIndex][i] = reverseCharMap.get(c);
+                this.bytes[(boxIndex * 9) + i] = reverseCharMap.get(c);
             } else {
                 throw new Error("Invalid character");
             }
@@ -132,11 +131,8 @@ export class BoxNames {
         if (bytes.length !== (14 * 9)) {
             throw new Error("Malformed bytearray");
         }
-        let bArrIdx = 0;
-        for (let bNNum = 0; bNNum < 14; bNNum++) {
-            for (let chrIdx = 0; chrIdx < 9; chrIdx++) {
-                this.boxNames[bNNum][chrIdx] = bytes[bArrIdx++];
-            }
+        for (let i = 0; i < this.bytes.length; i++) {
+            this.bytes[i] = bytes[i];
         }
     }
 }

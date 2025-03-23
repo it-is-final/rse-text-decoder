@@ -1,9 +1,9 @@
 {
     "compilerOptions": {
       "module": "ESNext",
+      "moduleResolution": "bundler",
       "esModuleInterop": true,
       "target": "es2019",
-      "moduleResolution": "node",
       "sourceMap": true,
       "outDir": "dist",
       "noEmit": true,
