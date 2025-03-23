@@ -203,25 +203,25 @@ for (
 
 document.querySelector<HTMLButtonElement>("#raw-view-tab")
 .addEventListener("click", function() {
-    setActiveTab.apply(
+    setActiveTab.call(
         this,
-        [document.querySelector<HTMLDivElement>("#raw-view-tab-panel")]
+        document.querySelector<HTMLDivElement>("#raw-view-tab-panel")
     );
 });
 
 document.querySelector<HTMLButtonElement>("#uint-view-tab")
 .addEventListener("click", function() {
-    setActiveTab.apply(
+    setActiveTab.call(
         this,
-        [document.querySelector<HTMLDivElement>("#uint-view-tab-panel")]
+        document.querySelector<HTMLDivElement>("#uint-view-tab-panel")
     );
 });
 
 document.querySelector<HTMLButtonElement>("#code-gen-view-tab")
 .addEventListener("click", function() {
-    setActiveTab.apply(
+    setActiveTab.call(
         this,
-        [document.querySelector<HTMLDivElement>("#code-gen-view-tab-panel")]
+        document.querySelector<HTMLDivElement>("#code-gen-view-tab-panel")
     );
 });
 
