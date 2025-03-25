@@ -54,23 +54,17 @@ function getVersionFromSelect() {
 };
 
 function updateByteViews() {
-    function getByteAsHex(byte: number): string {
+    function byteToHex(byte: number): string {
         return byte.toString(16)
                    .toUpperCase()
                    .padStart(2, "0");
     }
-    const b = boxNames.bytes;
-    byteViews.rawView.value = (() => {
-        const out: string[] = [];
-        for (let i = 0; i < 14; i++) {
-            out.push(
-                b.slice((i * 9), ((i + 1) * 9))
-                 .map(getByteAsHex)
-                 .join(" ")
-            );
-        }
-        return out.join("\n");
-    })();
+    const b = boxNames.getDataAsStream();
+    byteViews.rawView.value = boxNames.data.map(
+        (boxName) => Array.from(boxName)
+                          .map(byteToHex)
+                          .join(" ")
+    ).join("\n");
     byteViews.uIntView.value = (() => {
         let byteLength: 2 | 4;
         let endianness: "little" | "big";
@@ -94,8 +88,8 @@ function updateByteViews() {
             i < (b.length - (b.length % byteLength));
             i += byteLength
         ) {
-            const buffer: string[] = b.slice(i, i + byteLength)
-                                      .map(getByteAsHex);
+            const buffer: string[] = Array.from(b.slice(i, i + byteLength))
+                                          .map(byteToHex);
             // Everything is in little endian by default
             // Better to make an exception for big endian
             if (endianness === "big") {
@@ -165,10 +159,10 @@ byteViews.rawView.addEventListener("input", function() {
     } else {
         this.setCustomValidity("");
     }
-    const bytes: number[] = [];
-    for (let i = 0; i < BOX_NAMES_NIBBLE_LENGTH; i += 2) {
+    const bytes = new Uint8Array(14 * 9);
+    for (let i = 0; i < sByteView.length; i += 2) {
         const x = parseInt(sByteView.slice(i, i+2), 16);
-        bytes.push(x);
+        bytes[Math.floor(i / 2)] = x;
     }
     boxNames.setNamesFromBytes(bytes);
     updateBoxNameInputs(v, l);

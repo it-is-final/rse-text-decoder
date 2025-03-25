@@ -52,7 +52,7 @@ export interface languageToCharMapMap {
     SPA: ReadonlyMap<number, string>,
 }
 
-export interface reverseToCharMapMap {
+export interface languageToReverseCharMapMap {
     JPN: ReadonlyMap<string, number>,
     ENG: ReadonlyMap<string, number>,
     FRA: ReadonlyMap<string, number>,
