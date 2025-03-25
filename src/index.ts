@@ -185,6 +185,7 @@ for (const [i, boxInput] of boxNameInputs.entries()) {
         } catch(e) {
             this.setCustomValidity(e);
         }
+        updateBoxNameInputs(getVersionFromSelect(), getLangFromSelect());
     });
 }
 
