@@ -233,7 +233,7 @@ settingControls.versionSelect.addEventListener("input", () => {
 document.addEventListener("DOMContentLoaded", function () {
     updateBoxNameInputs(getVersionFromSelect(), getLangFromSelect());
     updateByteViews();
-    setActiveTab.call(
+    setActiveTab(
         document.querySelector<HTMLButtonElement>("#raw-view-tab"),
         document.querySelector<HTMLDivElement>("#raw-view-tab-panel"),
     );
