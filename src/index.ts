@@ -127,7 +127,7 @@ function updateBoxNameInputs(version: GameVersion, language: GameLanguage) {
     }
 }
 
-function setActiveTab(this: HTMLButtonElement, tabPanel: HTMLDivElement) {
+function setActiveTab(tabButton: HTMLButtonElement, tabPanel: HTMLDivElement) {
     const tabs = (
         document.querySelectorAll<HTMLButtonElement>(".tablinks")
     );
@@ -140,7 +140,7 @@ function setActiveTab(this: HTMLButtonElement, tabPanel: HTMLDivElement) {
     for (const tab of tabs) {
         tab.classList.remove("active");
     }
-    this.classList.add("active");
+    tabButton.classList.add("active");
     tabPanel.style.display = "block";
 }
 
@@ -198,7 +198,7 @@ for (
 
 document.querySelector<HTMLButtonElement>("#raw-view-tab")
 .addEventListener("click", function() {
-    setActiveTab.call(
+    setActiveTab(
         this,
         document.querySelector<HTMLDivElement>("#raw-view-tab-panel")
     );
@@ -206,7 +206,7 @@ document.querySelector<HTMLButtonElement>("#raw-view-tab")
 
 document.querySelector<HTMLButtonElement>("#uint-view-tab")
 .addEventListener("click", function() {
-    setActiveTab.call(
+    setActiveTab(
         this,
         document.querySelector<HTMLDivElement>("#uint-view-tab-panel")
     );
@@ -214,7 +214,7 @@ document.querySelector<HTMLButtonElement>("#uint-view-tab")
 
 document.querySelector<HTMLButtonElement>("#code-gen-view-tab")
 .addEventListener("click", function() {
-    setActiveTab.call(
+    setActiveTab(
         this,
         document.querySelector<HTMLDivElement>("#code-gen-view-tab-panel")
     );
