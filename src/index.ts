@@ -53,12 +53,13 @@ function getVersionFromSelect() {
     return v;
 };
 
+function byteToHex(byte: number): string {
+    return byte.toString(16)
+               .toUpperCase()
+               .padStart(2, "0");
+}
+
 function updateByteViews() {
-    function byteToHex(byte: number): string {
-        return byte.toString(16)
-                   .toUpperCase()
-                   .padStart(2, "0");
-    }
     const b = boxNames.getDataAsStream();
     byteViews.rawView.value = boxNames.data.map(
         (boxName) => Array.from(boxName)
