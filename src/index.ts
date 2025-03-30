@@ -19,6 +19,7 @@ const byteViews = {
     rawView: document.querySelector<HTMLTextAreaElement>("#box-name-byte-view"),
     uIntView: document.querySelector<HTMLTextAreaElement>("#uint-view"),
     codeGenView: document.querySelector<HTMLTextAreaElement>("#code-gen-view"),
+    pasteView: document.querySelector<HTMLTextAreaElement>("#paste-view"),
 };
 const settingControls = {
     languageSelect: document.querySelector<HTMLSelectElement>("#lang-input"),
@@ -57,6 +58,29 @@ function byteToHex(byte: number): string {
     return byte.toString(16)
                .toUpperCase()
                .padStart(2, "0");
+}
+
+function formatStringNameForPaste(
+    index: number,
+    sName: string,
+    language: GameLanguage
+) {
+    const spaceChar = language === "JPN" ? "\u3000" : " ";
+    const spaceSub = language === "JPN" ? "\uFF3F" : "␣";
+    const sNameWide = Array.from(
+        sName.replaceAll(spaceChar, spaceSub)
+    ).join(" ");
+    const label = (
+        language === "JPN"
+        ? `ボックス${index.toString().padStart(2, " ")}：`
+        : `Box ${index.toString().padStart(2, " ")}:`
+    );
+    return `\
+${label}\t${sNameWide} \t\
+${language === "JPN" ? "［" : "["}\
+${sName}\
+${language === "JPN" ? "］" : "]"}\
+`;
 }
 
 function updateByteViews() {
@@ -116,6 +140,17 @@ function updateByteViews() {
         }
         return l.join("\n");
     })();
+    byteViews.pasteView.value = boxNames.getStringNames(
+        getVersionFromSelect(),
+        getLangFromSelect(),
+    ).map(
+        (sName, i) =>
+            formatStringNameForPaste(
+                i+1,
+                sName,
+                getLangFromSelect()
+            )
+    ).join("\n");
 }
 
 function updateBoxNameInputs(version: GameVersion, language: GameLanguage) {
@@ -220,6 +255,14 @@ document.querySelector<HTMLButtonElement>("#code-gen-view-tab")
         document.querySelector<HTMLDivElement>("#code-gen-view-tab-panel")
     );
 });
+
+document.querySelector<HTMLButtonElement>("#paste-view-tab")
+.addEventListener("click", function() {
+    setActiveTab(
+        this,
+        document.querySelector<HTMLDivElement>("#paste-view-tab-panel")
+    );
+})
 
 settingControls.languageSelect.addEventListener("input", () => {
     updateBoxNameInputs(getVersionFromSelect(), getLangFromSelect());
