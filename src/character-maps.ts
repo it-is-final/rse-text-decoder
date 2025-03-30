@@ -823,7 +823,7 @@ const rubyMapJpnR: ReadonlyMap<string, number>  = new Map([
     ["ｐ", 0xe4], ["ｑ", 0xe5], ["ｒ", 0xe6], ["ｓ", 0xe7], ["ｔ", 0xe8],
     ["ｕ", 0xe9], ["ｖ", 0xea], ["ｗ", 0xeb], ["ｘ", 0xec], ["ｙ", 0xed],
     ["ｚ", 0xee],
-    ["►", 0xef], ["：", 0xf0],
+    ["►", 0xef], ["：", 0xf0], ["＿", 0x00],
     ["Ä", 0xf1], ["Ö", 0xf2], ["Ü", 0xf3],
     ["ä", 0xf4], ["ö", 0xf5], ["ü", 0xf6],
     ["↑", 0xf7], ["↓", 0xf8], ["←", 0xf9],
@@ -844,7 +844,7 @@ const rubyMapJpnR: ReadonlyMap<string, number>  = new Map([
     ["k", 0xDF], ["l", 0xE0], ["m", 0xE1], ["n", 0xE2], ["o", 0xE3],
     ["p", 0xE4], ["q", 0xE5], ["r", 0xE6], ["s", 0xE7], ["t", 0xE8],
     ["u", 0xE9], ["v", 0xEA], ["w", 0xEB], ["x", 0xEC], ["y", 0xED],
-    ["z", 0xEE], [":", 0xF0],
+    ["z", 0xEE], [":", 0xF0], ["_", 0x00], ["␣", 0x00],
 ]);
 
 const rubyMapEngR: ReadonlyMap<string, number> = new Map([
@@ -899,6 +899,7 @@ const rubyMapEngR: ReadonlyMap<string, number> = new Map([
     ["Ö", 0xF2], ["Ü", 0xF3], ["ä", 0xF4], ["ö", 0xF5], ["ü", 0xF6],
     ["\0", 0xff],
     ["…", 0xB0], ["–", 0xAE], ["･", 0xAF], ["・", 0xAF],
+    ["_", 0x00], ["␣", 0x00],
 ]);
 
 const rubyMapFraR: ReadonlyMap<string, number> = new Map([
@@ -953,6 +954,7 @@ const rubyMapFraR: ReadonlyMap<string, number> = new Map([
     ["Ö", 0xF2], ["Ü", 0xF3], ["ä", 0xF4], ["ö", 0xF5], ["ü", 0xF6],
     ["\0", 0xff],
     ["…", 0xB0], ["–", 0xAE], ["･", 0xAF], ["・", 0xAF],
+    ["_", 0x00], ["␣", 0x00],
 ]);
 
 const rubyMapGerR: ReadonlyMap<string, number> = new Map([
@@ -1007,6 +1009,7 @@ const rubyMapGerR: ReadonlyMap<string, number> = new Map([
     ["Ö", 0xF2], ["Ü", 0xF3], ["ä", 0xF4], ["ö", 0xF5], ["ü", 0xF6],
     ["\0", 0xff],
     ["…", 0xB0], ["–", 0xAE], ["･", 0xAF], ["・", 0xAF],
+    ["_", 0x00], ["␣", 0x00],
 ]);
 
 // REVERSE FIRERED/LEAFGREEN MAPS
@@ -1044,6 +1047,7 @@ const fireredMapEngR: ReadonlyMap<string, number> = new Map([
     ["ü", 0xF6],
     ["\0", 0xff],
     ["‥", 0xB0], ["–", 0xAE], ["･", 0xAF], ["・", 0xAF],
+    ["_", 0x00], ["␣", 0x00],
 ]);
 
 const fireredMapFraR: ReadonlyMap<string, number> = new Map([
@@ -1079,6 +1083,7 @@ const fireredMapFraR: ReadonlyMap<string, number> = new Map([
     ["ü", 0xF6],
     ["\0", 0xff],
     ["‥", 0xB0], ["–", 0xAE], ["･", 0xAF], ["・", 0xAF],
+    ["_", 0x00], ["␣", 0x00],
 ]);
 
 const fireredMapGerR: ReadonlyMap<string, number> = new Map([
@@ -1114,6 +1119,7 @@ const fireredMapGerR: ReadonlyMap<string, number> = new Map([
     ["ü", 0xF6],
     ["\0", 0xff],
     ["‥", 0xB0], ["–", 0xAE], ["･", 0xAF], ["・", 0xAF],
+    ["_", 0x00], ["␣", 0x00],
 ]);
 
 // REVERSE EMERALD MAPS
@@ -1179,7 +1185,7 @@ const emeraldMapJpnR: ReadonlyMap<string, number> = new Map([
     ["ｐ", 0xe4], ["ｑ", 0xe5], ["ｒ", 0xe6], ["ｓ", 0xe7], ["ｔ", 0xe8],
     ["ｕ", 0xe9], ["ｖ", 0xea], ["ｗ", 0xeb], ["ｘ", 0xec], ["ｙ", 0xed],
     ["ｚ", 0xee],
-    ["►", 0xef], ["：", 0xf0],
+    ["►", 0xef], ["：", 0xf0], ["＿", 0x00],
     ["Ä", 0xf1], ["Ö", 0xf2], ["Ü", 0xf3],
     ["ä", 0xf4], ["ö", 0xf5], ["ü", 0xf6],
     ["\0", 0xff],
@@ -1199,7 +1205,7 @@ const emeraldMapJpnR: ReadonlyMap<string, number> = new Map([
     ["k", 0xDF], ["l", 0xE0], ["m", 0xE1], ["n", 0xE2], ["o", 0xE3],
     ["p", 0xE4], ["q", 0xE5], ["r", 0xE6], ["s", 0xE7], ["t", 0xE8],
     ["u", 0xE9], ["v", 0xEA], ["w", 0xEB], ["x", 0xEC], ["y", 0xED],
-    ["z", 0xEE], [":", 0xF0],
+    ["z", 0xEE], [":", 0xF0], ["_", 0x00], ["␣", 0x00],
 ]) as ReadonlyMap<string, number>;
 
 const emeraldMapEngR: ReadonlyMap<string, number> = new Map([
@@ -1235,6 +1241,7 @@ const emeraldMapEngR: ReadonlyMap<string, number> = new Map([
     ["ä", 0xF4], ["ö", 0xF5], ["ü", 0xF6],
     ["\0", 0xff],
     ["‥", 0xB0], ["–", 0xAE], ["･", 0xAF], ["・", 0xAF],
+    ["_", 0x00], ["␣", 0x00],
 ]);
 
 const emeraldMapFraR: ReadonlyMap<string, number> = new Map([
@@ -1270,6 +1277,7 @@ const emeraldMapFraR: ReadonlyMap<string, number> = new Map([
     ["ä", 0xF4], ["ö", 0xF5], ["ü", 0xF6],
     ["\0", 0xff],
     ["‥", 0xB0], ["–", 0xAE], ["･", 0xAF], ["・", 0xAF],
+    ["_", 0x00], ["␣", 0x00],
 ]);
 
 const emeraldMapGerR: ReadonlyMap<string, number> = new Map([
@@ -1305,6 +1313,7 @@ const emeraldMapGerR: ReadonlyMap<string, number> = new Map([
     ["ä", 0xF4], ["ö", 0xF5], ["ü", 0xF6],
     ["\0", 0xff],
     ["‥", 0xB0], ["–", 0xAE], ["･", 0xAF], ["・", 0xAF],
+    ["_", 0x00], ["␣", 0x00],
 ]);
 
 export const rubyCharacterMaps: languageToCharMapMap = {
