@@ -33,6 +33,8 @@ const uIntViewControls = {
     bigEndianRadio:
         document.querySelector<HTMLInputElement>("#big-endian-radio"),
 };
+const pasteViewCharControl =
+    document.querySelector<HTMLInputElement>("#paste-charset-checkbox");
 const boxNameInputs =
     document.querySelectorAll<HTMLInputElement>(".box-name-input");
 
@@ -73,8 +75,8 @@ function formatStringNameForPaste(
     return `\
 Box ${index.toString().padStart(2, " ")}:\
 \t${sNameWide}${
-    (sName.length < 9 ? " " : "") +
-    Array<string>(9 - sName.length).fill(" ").join(" ")
+    (sName.length < 8 ? " " : "") +
+    Array<string>(8 - sName.length).fill(" ").join(" ")
 }\t\
 ${language === "JPN" ? "［" : "["}\
 ${sName}\
@@ -142,6 +144,7 @@ function updateByteViews() {
     byteViews.pasteView.value = boxNames.getStringNames(
         getVersionFromSelect(),
         getLangFromSelect(),
+        pasteViewCharControl.checked
     ).map(
         (sName, i) =>
             formatStringNameForPaste(
@@ -230,6 +233,10 @@ for (
 ) {
     uIntViewParam.addEventListener("input", () => updateByteViews());
 }
+
+pasteViewCharControl.addEventListener("input", function () {
+    updateByteViews();
+})
 
 document.querySelector<HTMLButtonElement>("#raw-view-tab")
 .addEventListener("click", function() {

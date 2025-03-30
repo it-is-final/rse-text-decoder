@@ -1,5 +1,5 @@
 body {
-    width: 35em;
+    width: 40em;
     margin: auto;
 }
 
@@ -97,4 +97,8 @@ border-top: none;
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
+}
+
+textarea#paste-view {
+    white-space: pre;
 }
