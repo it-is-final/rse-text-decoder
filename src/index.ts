@@ -66,17 +66,16 @@ function formatStringNameForPaste(
     language: GameLanguage
 ) {
     const spaceChar = language === "JPN" ? "\u3000" : " ";
-    const spaceSub = language === "JPN" ? "\uFF3F" : "␣";
+    const spaceSub = "␣";
     const sNameWide = Array.from(
         sName.replaceAll(spaceChar, spaceSub)
     ).join(" ");
-    const label = (
-        language === "JPN"
-        ? `ボックス${index.toString().padStart(2, " ")}：`
-        : `Box ${index.toString().padStart(2, " ")}:`
-    );
     return `\
-${label}\t${sNameWide} \t\
+Box ${index.toString().padStart(2, " ")}:\
+\t${sNameWide}${
+    (sName.length < 9 ? " " : "") +
+    Array<string>(9 - sName.length).fill(" ").join(" ")
+}\t\
 ${language === "JPN" ? "［" : "["}\
 ${sName}\
 ${language === "JPN" ? "］" : "]"}\
