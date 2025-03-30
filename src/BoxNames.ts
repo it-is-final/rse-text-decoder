@@ -31,22 +31,30 @@ export class BoxNames {
         return out;
     }
 
-    getStringNames(version: GameVersion, language: GameLanguage, showUnwritable = true) {
+    getStringNames(
+        version: GameVersion,
+        language: GameLanguage,
+        showUnwritable = true
+    ) {
         const characterMap = characterMaps[version][language];
         const codepointsUsed = new Set(Array(0xFF + 1).keys());
         if (!showUnwritable) {
-            codepointsUsed.difference(writableCharSet[language])
-            .forEach(Set.prototype.delete.bind(codepointsUsed));
+            for (
+                const codepoint
+                of codepointsUsed.difference(writableCharSet[language])
+            ) {
+                codepointsUsed.delete(codepoint);
+            }
         }
         return this.data.map(
             (x) => Array.from(x)
-                            .map(b => 
-                                codepointsUsed.has(b)
-                                ? characterMap.get(b) ?? " "
-                                : "□"
-                            )
-                            .join("")
-                            .split("\0")[0]
+                        .map(b => 
+                            codepointsUsed.has(b)
+                            ? characterMap.get(b) ?? " "
+                            : "□"
+                        )
+                        .join("")
+                        .split("\0")[0]
         );
     }
 

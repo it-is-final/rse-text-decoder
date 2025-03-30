@@ -126,11 +126,15 @@ function updateByteViews() {
         return out.join("\n");
     })();
     byteViews.codeGenView.value = (() => {
-        const l: string[] = [];
-        for (let i = 0; i < (b.length - (b.length % 4)); i += 4) {
+        const out: string[] = [];
+        for (
+            let i = 0;
+            i < (b.length - (b.length % 4));
+            i += 4
+        ) {
             const x = (b[i+3] << 24) | (b[i+2] << 16)
                       | (b[i+1] << 8) | (b[i] << 0);
-            l.push(
+            out.push(
                 (
                     "0x" + (x >>> 0)
                                 .toString(16)
@@ -139,7 +143,7 @@ function updateByteViews() {
                 )
             );
         }
-        return l.join("\n");
+        return out.join("\n");
     })();
     byteViews.pasteView.value = boxNames.getStringNames(
         getVersionFromSelect(),
@@ -183,8 +187,6 @@ function setActiveTab(tabButton: HTMLButtonElement, tabPanel: HTMLDivElement) {
 }
 
 byteViews.rawView.addEventListener("input", function() {
-    const v = getVersionFromSelect();
-    const l = getLangFromSelect();
     const cursePosition = this.selectionStart;
     const BOX_NAMES_NIBBLE_LENGTH = 252; // (9 * 2) * 14 = 252
     const sByteView = this.value.replace(/\s/gm, "").toUpperCase();
@@ -203,7 +205,10 @@ byteViews.rawView.addEventListener("input", function() {
         bytes[Math.floor(i / 2)] = x;
     }
     boxNames.setNamesFromBytes(bytes);
-    updateBoxNameInputs(v, l);
+    updateBoxNameInputs(
+        getVersionFromSelect(),
+        getLangFromSelect(),
+    );
     updateByteViews();
     this.selectionStart = cursePosition;
     this.selectionEnd = cursePosition;
