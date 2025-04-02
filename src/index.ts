@@ -76,7 +76,7 @@ function formatStringNameForPaste(
 Box ${index.toString().padStart(2, " ")}:\
 \t${sNameWide}${
     (sName.length < 8 ? " " : "") +
-    Array<string>(8 - sName.length).fill(" ").join(" ")
+    Array<string>(8 - sName.length).fill(spaceChar).join(" ")
 }\t\
 ${language === "JPN" ? "［" : "["}\
 ${sName}\
@@ -276,7 +276,16 @@ document.querySelector<HTMLButtonElement>("#paste-view-tab")
 })
 
 settingControls.languageSelect.addEventListener("input", () => {
-    updateBoxNameInputs(getVersionFromSelect(), getLangFromSelect());
+    const language = getLangFromSelect();
+    const newFontStyle = language === "JPN" ? `font-family: "Noto Sans JP";` : "";
+    for (
+        const boxInput
+        of boxNameInputs
+    ) {
+        boxInput.style = newFontStyle;
+    }
+    byteViews.pasteView.style = newFontStyle;
+    updateBoxNameInputs(getVersionFromSelect(), language);
     updateByteViews();
 });
 
