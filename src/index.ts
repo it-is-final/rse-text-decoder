@@ -78,9 +78,7 @@ Box ${index.toString().padStart(2, " ")}:\
     (sName.length < 8 ? " " : "") +
     Array<string>(8 - sName.length).fill(spaceChar).join(" ")
 }\t\
-${language === "JPN" ? "［" : "["}\
-${sName}\
-${language === "JPN" ? "］" : "]"}\
+[${sName}]\
 `;
 }
 
@@ -283,7 +281,7 @@ settingControls.languageSelect.addEventListener("input", () => {
     ) {
         boxInput.classList.toggle("japanese-font", language === "JPN");
     }
-    byteViews.rawView.classList.toggle("japanese-font", language === "JPN");
+    byteViews.pasteView.classList.toggle("japanese-font", language === "JPN");
     updateBoxNameInputs(getVersionFromSelect(), language);
     updateByteViews();
 });
