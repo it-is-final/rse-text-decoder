@@ -102,3 +102,7 @@ border-top: none;
 textarea#paste-view {
     white-space: pre;
 }
+
+.japanese-font {
+    font-family: "Noto Sans JP";
+}

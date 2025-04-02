@@ -277,14 +277,13 @@ document.querySelector<HTMLButtonElement>("#paste-view-tab")
 
 settingControls.languageSelect.addEventListener("input", () => {
     const language = getLangFromSelect();
-    const newFontStyle = language === "JPN" ? `font-family: "Noto Sans JP";` : "";
     for (
         const boxInput
         of boxNameInputs
     ) {
-        boxInput.style = newFontStyle;
+        boxInput.classList.toggle("japanese-font", language === "JPN");
     }
-    byteViews.pasteView.style = newFontStyle;
+    byteViews.rawView.classList.toggle("japanese-font", language === "JPN");
     updateBoxNameInputs(getVersionFromSelect(), language);
     updateByteViews();
 });
