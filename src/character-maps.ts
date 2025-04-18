@@ -232,7 +232,7 @@ function buildCharacterMapR(
     const mapExtension: [string, number][] = [];
     if (language === "JPN") {
         mapExtension.push(
-            ['‥', 0xb0], ['…', 0xb0],
+            ['‥', 0xb0], ['…', 0xb0], ['⋯', 0xb0],
             ['：', 0xf0],
             ['＿', 0x00], [' ', 0x00], ['_', 0x00], ['␣', 0x00],
             // Half-width characters are added for the copy-paste
@@ -244,7 +244,7 @@ function buildCharacterMapR(
             ['!', 0xab], ['?', 0xac],
             ['¥', 0xb7],
             ['·', 0xaf], ['･', 0xaf],
-            ['-', 0xae], ['–', 0xae],
+            ['-', 0xae], ['–', 0xae], ['—', 0xae],
             ['.', 0xb8],
             ['/', 0xba],
             ['A', 0xbb], ['B', 0xbc], ['C', 0xbd],
@@ -267,17 +267,43 @@ function buildCharacterMapR(
         );
     } else {
         mapExtension.push(
-            ['…', 0xb0], ['‥', 0xb0],
+            ['…', 0xb0], ['‥', 0xb0], ['⋯', 0xb0],
             // CodeGenerator uses an en dash (U+2013) for representing
             // 0xAE
-            ['–', 0xae],
+            ['–', 0xae], ['—', 0xae], ['ー', 0xae],
             // Some programs (e.g. PkHeX) use a full-width middle-dot
-            // to represent 0xAF.
-            // Bulbapedia uses U+FF65 to represent 0xAF, while this
-            // tool uses U+00B7 to represent 0xAF for non-Japanese
+            // to represent 0xaf.
+            // Bulbapedia uses U+FF65 to represent 0xaf, while this
+            // tool uses U+00B7 to represent 0xaf for non-Japanese
             // languages.
             ['･', 0xaf], ['・', 0xaf],
-            ['_', 0x00], ['␣', 0x00],
+            ['_', 0x00], ['␣', 0x00], ['＿', 0x00],
+            // Map full-width characters for the sake of completeness
+            ['\u3000', 0x00],
+            ['０', 0xa1],
+            ['１', 0xa2], ['２', 0xa3], ['３', 0xa4],
+            ['４', 0xa5], ['５', 0xa6], ['６', 0xa7],
+            ['７', 0xa8], ['８', 0xa9], ['９', 0xaa],
+            ['！', 0xab], ['？', 0xac],
+            ['．', 0xad],
+            ['／', 0xba],
+            ['Ａ', 0xbb], ['Ｂ', 0xbc], ['Ｃ', 0xbd],
+            ['Ｄ', 0xbe], ['Ｅ', 0xbf], ['Ｆ', 0xc0],
+            ['Ｇ', 0xc1], ['Ｈ', 0xc2], ['Ｉ', 0xc3],
+            ['Ｊ', 0xc4], ['Ｋ', 0xc5], ['Ｌ', 0xc6],
+            ['Ｍ', 0xc7], ['Ｎ', 0xc8], ['Ｏ', 0xc9],
+            ['Ｐ', 0xca], ['Ｑ', 0xcb], ['Ｒ', 0xcc], ['Ｓ', 0xcd],
+            ['Ｔ', 0xce], ['Ｕ', 0xcf], ['Ｖ', 0xd0],
+            ['Ｗ', 0xd1], ['Ｘ', 0xd2], ['Ｙ', 0xd3], ['Ｚ', 0xd4],
+            ['ａ', 0xd5], ['ｂ', 0xd6], ['ｃ', 0xd7],
+            ['ｄ', 0xd8], ['ｅ', 0xd9], ['ｆ', 0xda],
+            ['ｇ', 0xdb], ['ｈ', 0xdc], ['ｉ', 0xdd],
+            ['ｊ', 0xde], ['ｋ', 0xdf], ['ｌ', 0xe0],
+            ['ｍ', 0xe1], ['ｎ', 0xe2], ['ｏ', 0xe3],
+            ['ｐ', 0xe4], ['ｑ', 0xe5], ['ｒ', 0xe6], ['ｓ', 0xe7],
+            ['ｔ', 0xe8], ['ｕ', 0xe9], ['ｖ', 0xea],
+            ['ｗ', 0xeb], ['ｘ', 0xec], ['ｙ', 0xed], ['ｚ', 0xee],
+            ['：', 0xf0],
         )
     }
     for (const [k, v] of mapExtension.values()) {
