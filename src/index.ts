@@ -75,8 +75,8 @@ function formatStringNameForPaste(
     return `\
 Box ${index.toString().padStart(2, " ")}:\
 \t${sNameWide}${
-    (sName.length < 8 ? " " : "") +
-    Array<string>(8 - sName.length).fill(spaceChar).join(" ")
+    (sName.length < 8 && sName.length > 0 ? " " : "") +
+    Array<string>(sName.length < 8 ? 8 - sName.length : 0).fill(spaceChar).join(" ")
 }\t\
 [${sName}]\
 `;
