@@ -5,6 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>rse-text-decoder</title>
+    <link rel="stylesheet" type="text/css" href="normalize.css">
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
@@ -30,33 +31,33 @@
         <div id="editor">
             <div id="box-name-inputs">
                 <label for="box-1-input">Box 1:</label>
-                <input id="box-1-input" type="text" maxlength="9" size="16" class="box-name-input" />
+                <input id="box-1-input" type="text" maxlength="9" class="box-name-input" />
                 <label for="box-2-input">Box 2:</label>
-                <input id="box-2-input" type="text" maxlength="9" size="16" class="box-name-input" />
+                <input id="box-2-input" type="text" maxlength="9" class="box-name-input" />
                 <label for="box-3-input">Box 3:</label>
-                <input id="box-3-input" type="text" maxlength="9" size="16" class="box-name-input" />
+                <input id="box-3-input" type="text" maxlength="9" class="box-name-input" />
                 <label for="box-4-input">Box 4:</label>
-                <input id="box-4-input" type="text" maxlength="9" size="16" class="box-name-input" />
+                <input id="box-4-input" type="text" maxlength="9" class="box-name-input" />
                 <label for="box-5-input">Box 5:</label>
-                <input id="box-5-input" type="text" maxlength="9" size="16" class="box-name-input" />
+                <input id="box-5-input" type="text" maxlength="9" class="box-name-input" />
                 <label for="box-6-input">Box 6:</label>
-                <input id="box-6-input" type="text" maxlength="9" size="16" class="box-name-input" />
+                <input id="box-6-input" type="text" maxlength="9" class="box-name-input" />
                 <label for="box-7-input">Box 7:</label>
-                <input id="box-7-input" type="text" maxlength="9" size="16" class="box-name-input" />
+                <input id="box-7-input" type="text" maxlength="9" class="box-name-input" />
                 <label for="box-8-input">Box 8:</label>
-                <input id="box-8-input" type="text" maxlength="9" size="16" class="box-name-input" />
+                <input id="box-8-input" type="text" maxlength="9" class="box-name-input" />
                 <label for="box-9-input">Box 9:</label>
-                <input id="box-9-input" type="text" maxlength="9" size="16" class="box-name-input" />
+                <input id="box-9-input" type="text" maxlength="9" class="box-name-input" />
                 <label for="box-10-input">Box 10:</label>
-                <input id="box-10-input" type="text" maxlength="9" size="16" class="box-name-input" />
+                <input id="box-10-input" type="text" maxlength="9" class="box-name-input" />
                 <label for="box-11-input">Box 11:</label>
-                <input id="box-11-input" type="text" maxlength="9" size="16" class="box-name-input" />
+                <input id="box-11-input" type="text" maxlength="9" class="box-name-input" />
                 <label for="box-12-input">Box 12:</label>
-                <input id="box-12-input" type="text" maxlength="9" size="16" class="box-name-input" />
+                <input id="box-12-input" type="text" maxlength="9" class="box-name-input" />
                 <label for="box-13-input">Box 13:</label>
-                <input id="box-13-input" type="text" maxlength="9" size="16" class="box-name-input" />
+                <input id="box-13-input" type="text" maxlength="9" class="box-name-input" />
                 <label for="box-14-input">Box 14:</label>
-                <input id="box-14-input" type="text" maxlength="9" size="16" class="box-name-input" />
+                <input id="box-14-input" type="text" maxlength="9" class="box-name-input" />
             </div>
             <div class="tab-view">
                 <div class="tab">
@@ -74,10 +75,10 @@
                     </button>
                 </div>
                 <div id="raw-view-tab-panel" class="tabcontent">
-                    <textarea id="box-name-byte-view" cols="26" rows="14" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
+                    <textarea id="box-name-byte-view" rows="14" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
                 </div>
                 <div id="uint-view-tab-panel" class="tabcontent">
-                    <textarea id="uint-view" cols="26" rows="14" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" readonly></textarea>
+                    <textarea id="uint-view" rows="14" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" readonly></textarea>
                     <div id="uint-view-params-panel">
                         <label for="u16-radio">
                             <input class="uint-view-params" id="u16-radio" name="size" type="radio" checked>
@@ -98,10 +99,10 @@
                     </div>
                 </div>
                 <div id="code-gen-view-tab-panel" class="tabcontent">
-                    <textarea id="code-gen-view" cols="26" rows="14" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" readonly></textarea>
+                    <textarea id="code-gen-view" rows="14" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" readonly></textarea>
                 </div>
                 <div id="paste-view-tab-panel" class="tabcontent">
-                    <textarea id="paste-view" cols="40" rows="18" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" readonly></textarea>
+                    <textarea id="paste-view" rows="18" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" readonly></textarea>
                     <br>
                     <label for="paste-charset-checkbox">
                         <input id="paste-charset-checkbox" type="checkbox">

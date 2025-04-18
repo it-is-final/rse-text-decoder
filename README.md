@@ -25,3 +25,5 @@ rse=text-decoder is a web tool designed to help translate the box names of the m
 ## License
 
 © it-is-final 2024-2025. rse-text-decoder is licensed under the terms of the MIT license, which can be found in `LICENSE`.
+
+This project uses [`Normalize.css`](https://necolas.github.io/normalize.css/) which is provided under the terms of the MIT license.
