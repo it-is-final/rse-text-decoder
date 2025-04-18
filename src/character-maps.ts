@@ -16,6 +16,12 @@ function buildCharacterMap(
     version: GameVersion,
     language: GameLanguage,
 ): ReadonlyMap<number, string> {
+    /**
+     * Builds a character map based on the given game version
+     * and language.
+     * @param {GameVersion} version Target game version
+     * @param {GameLanguage} language Target game language
+     */
     const baseJpnMap: ReadonlyMap<number, string> = new Map([
         [0x00, '\u3000'],
         [0x01, 'あ'], [0x02, 'い'], [0x03, 'う'], [0x04, 'え'], [0x05, 'お'],
@@ -146,6 +152,8 @@ function buildCharacterMap(
         characterMap.set(0xb1, '«');
         characterMap.set(0xb2, '»');
         if (version === "E") {
+            // French Emerald has a codepoint for its abbreviation for
+            // PokéBlocks.
             characterMap.set(0x64, ' ');
         }
     }
@@ -206,6 +214,12 @@ function buildCharacterMapR(
     version: GameVersion,
     language: GameLanguage
 ): ReadonlyMap<string, number> {
+    /**
+     * Builds a reverse character map based on the given game version
+     * and language.
+     * @param {GameVersion} version Target game version
+     * @param {GameLanguage} language Target game language
+     */
     const baseCharacterMap = buildCharacterMap(version, language);
     const characterMap = new Map([
         ['\n', 0xfe], ['\x00', 0xff],
