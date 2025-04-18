@@ -60,3 +60,12 @@ export interface languageToReverseCharMapMap {
     GER: ReadonlyMap<string, number>,
     SPA: ReadonlyMap<string, number>,
 }
+
+export interface writableCharSetMap {
+    JPN: ReadonlySet<number>,
+    ENG: ReadonlySet<number>,
+    FRA: ReadonlySet<number>,
+    ITA: ReadonlySet<number>,
+    GER: ReadonlySet<number>,
+    SPA: ReadonlySet<number>,
+}

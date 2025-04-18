@@ -19,6 +19,7 @@ const byteViews = {
     rawView: document.querySelector<HTMLTextAreaElement>("#box-name-byte-view"),
     uIntView: document.querySelector<HTMLTextAreaElement>("#uint-view"),
     codeGenView: document.querySelector<HTMLTextAreaElement>("#code-gen-view"),
+    pasteView: document.querySelector<HTMLTextAreaElement>("#paste-view"),
 };
 const settingControls = {
     languageSelect: document.querySelector<HTMLSelectElement>("#lang-input"),
@@ -32,6 +33,8 @@ const uIntViewControls = {
     bigEndianRadio:
         document.querySelector<HTMLInputElement>("#big-endian-radio"),
 };
+const pasteViewCharControl =
+    document.querySelector<HTMLInputElement>("#paste-charset-checkbox");
 const boxNameInputs =
     document.querySelectorAll<HTMLInputElement>(".box-name-input");
 
@@ -57,6 +60,26 @@ function byteToHex(byte: number): string {
     return byte.toString(16)
                .toUpperCase()
                .padStart(2, "0");
+}
+
+function formatStringNameForPaste(
+    index: number,
+    sName: string,
+    language: GameLanguage
+) {
+    const spaceChar = language === "JPN" ? "\u3000" : " ";
+    const spaceSub = "␣";
+    const sNameWide = Array.from(
+        sName.replaceAll(spaceChar, spaceSub)
+    ).join(" ");
+    return `\
+Box ${index.toString().padStart(2, " ")}:\
+\t${sNameWide}${
+    (sName.length < 8 ? " " : "") +
+    Array<string>(8 - sName.length).fill(spaceChar).join(" ")
+}\t\
+[${sName}]\
+`;
 }
 
 function updateByteViews() {
@@ -101,11 +124,15 @@ function updateByteViews() {
         return out.join("\n");
     })();
     byteViews.codeGenView.value = (() => {
-        const l: string[] = [];
-        for (let i = 0; i < (b.length - (b.length % 4)); i += 4) {
+        const out: string[] = [];
+        for (
+            let i = 0;
+            i < (b.length - (b.length % 4));
+            i += 4
+        ) {
             const x = (b[i+3] << 24) | (b[i+2] << 16)
                       | (b[i+1] << 8) | (b[i] << 0);
-            l.push(
+            out.push(
                 (
                     "0x" + (x >>> 0)
                                 .toString(16)
@@ -114,8 +141,20 @@ function updateByteViews() {
                 )
             );
         }
-        return l.join("\n");
+        return out.join("\n");
     })();
+    byteViews.pasteView.value = boxNames.getStringNames(
+        getVersionFromSelect(),
+        getLangFromSelect(),
+        pasteViewCharControl.checked
+    ).map(
+        (sName, i) =>
+            formatStringNameForPaste(
+                i+1,
+                sName,
+                getLangFromSelect()
+            )
+    ).join("\n");
 }
 
 function updateBoxNameInputs(version: GameVersion, language: GameLanguage) {
@@ -145,9 +184,14 @@ function setActiveTab(tabButton: HTMLButtonElement, tabPanel: HTMLDivElement) {
     tabPanel.style.display = "block";
 }
 
+function setLanguageFont(language: GameLanguage) {
+    for (const boxInput of boxNameInputs) {
+        boxInput.classList.toggle("japanese-font", language === "JPN");
+    }
+    byteViews.pasteView.classList.toggle("japanese-font", language === "JPN");
+}
+
 byteViews.rawView.addEventListener("input", function() {
-    const v = getVersionFromSelect();
-    const l = getLangFromSelect();
     const cursePosition = this.selectionStart;
     const BOX_NAMES_NIBBLE_LENGTH = 252; // (9 * 2) * 14 = 252
     const sByteView = this.value.replace(/\s/gm, "").toUpperCase();
@@ -166,7 +210,10 @@ byteViews.rawView.addEventListener("input", function() {
         bytes[Math.floor(i / 2)] = x;
     }
     boxNames.setNamesFromBytes(bytes);
-    updateBoxNameInputs(v, l);
+    updateBoxNameInputs(
+        getVersionFromSelect(),
+        getLangFromSelect(),
+    );
     updateByteViews();
     this.selectionStart = cursePosition;
     this.selectionEnd = cursePosition;
@@ -197,6 +244,10 @@ for (
     uIntViewParam.addEventListener("input", () => updateByteViews());
 }
 
+pasteViewCharControl.addEventListener("input", function () {
+    updateByteViews();
+})
+
 document.querySelector<HTMLButtonElement>("#raw-view-tab")
 .addEventListener("click", function() {
     setActiveTab(
@@ -221,8 +272,19 @@ document.querySelector<HTMLButtonElement>("#code-gen-view-tab")
     );
 });
 
+document.querySelector<HTMLButtonElement>("#paste-view-tab")
+.addEventListener("click", function() {
+    setActiveTab(
+        this,
+        document.querySelector<HTMLDivElement>("#paste-view-tab-panel")
+    );
+})
+
 settingControls.languageSelect.addEventListener("input", () => {
-    updateBoxNameInputs(getVersionFromSelect(), getLangFromSelect());
+    const language = getLangFromSelect();
+    setLanguageFont(language);
+    byteViews.pasteView.classList.toggle("japanese-font", language === "JPN");
+    updateBoxNameInputs(getVersionFromSelect(), language);
     updateByteViews();
 });
 
@@ -232,6 +294,7 @@ settingControls.versionSelect.addEventListener("input", () => {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
+    setLanguageFont(getLangFromSelect());
     updateBoxNameInputs(getVersionFromSelect(), getLangFromSelect());
     updateByteViews();
     setActiveTab(

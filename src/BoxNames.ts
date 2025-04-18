@@ -1,11 +1,8 @@
 import { GameVersion, GameLanguage } from "./types";
-import { 
-    rubyCharacterMaps,
-    fireredCharacterMaps,
-    emeraldCharacterMaps,
-    rubyCharacterMapsR,
-    fireredCharacterMapsR,
-    emeraldCharacterMapsR,
+import {
+    writableCharSet,
+    characterMaps,
+    characterMapsR,
 } from "./character-maps";
 
 export class BoxNames {
@@ -34,22 +31,30 @@ export class BoxNames {
         return out;
     }
 
-    getStringNames(version: GameVersion, language: GameLanguage) {
-        const characterMap = ((version, language) => {
-            switch (version) {
-                case "RS":
-                    return rubyCharacterMaps[language];
-                case "FRLG":
-                    return fireredCharacterMaps[language];
-                case "E":
-                    return emeraldCharacterMaps[language];
+    getStringNames(
+        version: GameVersion,
+        language: GameLanguage,
+        showUnwritable = true
+    ) {
+        const characterMap = characterMaps[version][language];
+        const codepointsUsed = new Set(Array(0xFF + 1).keys());
+        if (!showUnwritable) {
+            for (
+                const codepoint
+                of codepointsUsed.difference(writableCharSet[language])
+            ) {
+                codepointsUsed.delete(codepoint);
             }
-        })(version, language);
+        }
         return this.data.map(
             (x) => Array.from(x)
-                            .map(b => characterMap.get(b) ?? " ")
-                            .join("")
-                            .split("\0")[0]
+                        .map(b => 
+                            codepointsUsed.has(b)
+                            ? characterMap.get(b) ?? " "
+                            : "□"
+                        )
+                        .join("")
+                        .split("\0")[0]
         );
     }
 
@@ -59,22 +64,13 @@ export class BoxNames {
         version: GameVersion,
         language: GameLanguage
     ) {
-        const reverseCharMap = ((version, language) => {
-            switch (version) {
-                case "RS":
-                    return rubyCharacterMapsR[language];
-                case "FRLG":
-                    return fireredCharacterMapsR[language];
-                case "E":
-                    return emeraldCharacterMapsR[language];
-            }
-        })(version, language);
+        const reverseCharMap = characterMapsR[version][language];
         for (const i of this.data[boxIndex].keys()) {
             const c = sName.charAt(i);
-            if (c === "") {
-                this.data[boxIndex][i] = 0xFF;
-            } else if (reverseCharMap.has(c)) {
+            if (reverseCharMap.has(c)) {
                 this.data[boxIndex][i] = reverseCharMap.get(c);
+            } else if (c === "") {
+                this.data[boxIndex][i] = 0xFF;
             } else {
                 throw new Error("Invalid character");
             }
