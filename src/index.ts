@@ -184,6 +184,13 @@ function setActiveTab(tabButton: HTMLButtonElement, tabPanel: HTMLDivElement) {
     tabPanel.style.display = "block";
 }
 
+function setLanguageFont(language: GameLanguage) {
+    for (const boxInput of boxNameInputs) {
+        boxInput.classList.toggle("japanese-font", language === "JPN");
+    }
+    byteViews.pasteView.classList.toggle("japanese-font", language === "JPN");
+}
+
 byteViews.rawView.addEventListener("input", function() {
     const cursePosition = this.selectionStart;
     const BOX_NAMES_NIBBLE_LENGTH = 252; // (9 * 2) * 14 = 252
@@ -275,12 +282,7 @@ document.querySelector<HTMLButtonElement>("#paste-view-tab")
 
 settingControls.languageSelect.addEventListener("input", () => {
     const language = getLangFromSelect();
-    for (
-        const boxInput
-        of boxNameInputs
-    ) {
-        boxInput.classList.toggle("japanese-font", language === "JPN");
-    }
+    setLanguageFont(language);
     byteViews.pasteView.classList.toggle("japanese-font", language === "JPN");
     updateBoxNameInputs(getVersionFromSelect(), language);
     updateByteViews();
@@ -292,6 +294,7 @@ settingControls.versionSelect.addEventListener("input", () => {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
+    setLanguageFont(getLangFromSelect());
     updateBoxNameInputs(getVersionFromSelect(), getLangFromSelect());
     updateByteViews();
     setActiveTab(
