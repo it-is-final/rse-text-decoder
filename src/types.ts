@@ -42,30 +42,3 @@ export function isGameLanguage(
         || language === "SPA"
     );
 }
-
-export interface languageToCharMapMap {
-    JPN: ReadonlyMap<number, string>,
-    ENG: ReadonlyMap<number, string>,
-    FRA: ReadonlyMap<number, string>,
-    ITA: ReadonlyMap<number, string>,
-    GER: ReadonlyMap<number, string>,
-    SPA: ReadonlyMap<number, string>,
-}
-
-export interface languageToReverseCharMapMap {
-    JPN: ReadonlyMap<string, number>,
-    ENG: ReadonlyMap<string, number>,
-    FRA: ReadonlyMap<string, number>,
-    ITA: ReadonlyMap<string, number>,
-    GER: ReadonlyMap<string, number>,
-    SPA: ReadonlyMap<string, number>,
-}
-
-export interface writableCharSetMap {
-    JPN: ReadonlySet<number>,
-    ENG: ReadonlySet<number>,
-    FRA: ReadonlySet<number>,
-    ITA: ReadonlySet<number>,
-    GER: ReadonlySet<number>,
-    SPA: ReadonlySet<number>,
-}
