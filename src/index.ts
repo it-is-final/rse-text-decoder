@@ -46,7 +46,7 @@ function getLangFromSelect() {
         throw new Error("Invalid language");
     }
     return l;
-};
+}
 
 function getVersionFromSelect() {
     const v = settingControls.versionSelect.value;
@@ -54,7 +54,7 @@ function getVersionFromSelect() {
         throw new Error("Invalid game version");
     }
     return v;
-};
+}
 
 function byteToHex(byte: number): string {
     return byte.toString(16)
@@ -217,7 +217,7 @@ byteViews.rawView.addEventListener("input", function() {
     updateByteViews();
     this.selectionStart = cursePosition;
     this.selectionEnd = cursePosition;
-})
+});
 
 for (const [i, boxInput] of boxNameInputs.entries()) {
     boxInput.addEventListener("input", function() {
@@ -246,7 +246,7 @@ for (
 
 pasteViewCharControl.addEventListener("input", function () {
     updateByteViews();
-})
+});
 
 document.querySelector<HTMLButtonElement>("#raw-view-tab")
 .addEventListener("click", function() {
@@ -278,7 +278,7 @@ document.querySelector<HTMLButtonElement>("#paste-view-tab")
         this,
         document.querySelector<HTMLDivElement>("#paste-view-tab-panel")
     );
-})
+});
 
 settingControls.languageSelect.addEventListener("input", () => {
     const language = getLangFromSelect();
@@ -301,4 +301,4 @@ document.addEventListener("DOMContentLoaded", function () {
         document.querySelector<HTMLButtonElement>("#raw-view-tab"),
         document.querySelector<HTMLDivElement>("#raw-view-tab-panel"),
     );
-})
+});
