@@ -105,6 +105,7 @@ border-top: none;
 }
 
 textarea {
+    font-size: 0.80em;
     font-family: 'Cascadia Mono', monospace;
 }
 
