@@ -187,8 +187,10 @@ function setActiveTab(tabButton: HTMLButtonElement, tabPanel: HTMLDivElement) {
 function setLanguageFont(language: GameLanguage) {
     for (const boxInput of boxNameInputs) {
         boxInput.classList.toggle("japanese-font", language === "JPN");
+        boxInput.setAttribute("lang", language === "JPN" ? "ja" : "");
     }
     byteViews.pasteView.classList.toggle("japanese-font", language === "JPN");
+    byteViews.pasteView.setAttribute("lang", language === "JPN" ? "ja" : "");
 }
 
 byteViews.rawView.addEventListener("input", function() {
