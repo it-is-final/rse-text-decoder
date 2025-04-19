@@ -27,3 +27,5 @@ rse=text-decoder is a web tool designed to help translate the box names of the m
 © it-is-final 2024-2025. rse-text-decoder is licensed under the terms of the MIT license, which can be found in `LICENSE`.
 
 This project uses [`Normalize.css`](https://necolas.github.io/normalize.css/) which is provided under the terms of the MIT license.
+
+This project uses the [Cascadia Mono](https://github.com/microsoft/cascadia-code) font which is provided under the terms of the SIL Open Font License, which can be found in the [`LICENSE-CASCADIA`](LICENSE-CASCADIA) file, or at <https://github.com/microsoft/cascadia-code/blob/main/LICENSE>.
