@@ -9,115 +9,115 @@
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
+<header>
     <h1>rse-text-decoder</h1>
-    <main>
-        <div id="parameters-area">
-            <label for="lang-input" id="lang-label">Game Language:</label>
-            <select name="lang" title="Language selector" id="lang-input">
-                <option value="JPN" selected>Japanese</option>
-                <option value="ENG">English</option>
-                <option value="FRA">French</option>
-                <option value="ITA">Italian</option>
-                <option value="GER">German</option>
-                <option value="SPA">Spanish</option>
-            </select>
-            <label for="game-version-input" id="langLabel">Game:</label>
-            <select name="game-version" title="Game selector" id="game-version-input">
-                <option value="RS">Ruby/Sapphire</option>
-                <option value="FRLG">FireRed/LeafGreen</option>
-                <option value="E" selected>Emerald</option>
-            </select>
+</header>
+<main>
+    <div id="parameters-area">
+        <label for="lang-input" id="lang-label">Game Language</label>
+        <select name="lang" title="Language selector" id="lang-input">
+            <option value="JPN" selected>Japanese</option>
+            <option value="ENG">English</option>
+            <option value="FRA">French</option>
+            <option value="ITA">Italian</option>
+            <option value="GER">German</option>
+            <option value="SPA">Spanish</option>
+        </select>
+        <label for="game-version-input" id="langLabel">Game</label>
+        <select name="game-version" title="Game selector" id="game-version-input">
+            <option value="RS">Ruby/Sapphire</option>
+            <option value="FRLG">FireRed/LeafGreen</option>
+            <option value="E" selected>Emerald</option>
+        </select>
+    </div>
+    <div id="editor">
+        <div id="box-name-inputs">
+            <label for="box-1-input">Box 1</label>
+            <input id="box-1-input" type="text" maxlength="9" class="box-name-input" />
+            <label for="box-2-input">Box 2</label>
+            <input id="box-2-input" type="text" maxlength="9" class="box-name-input" />
+            <label for="box-3-input">Box 3</label>
+            <input id="box-3-input" type="text" maxlength="9" class="box-name-input" />
+            <label for="box-4-input">Box 4</label>
+            <input id="box-4-input" type="text" maxlength="9" class="box-name-input" />
+            <label for="box-5-input">Box 5</label>
+            <input id="box-5-input" type="text" maxlength="9" class="box-name-input" />
+            <label for="box-6-input">Box 6</label>
+            <input id="box-6-input" type="text" maxlength="9" class="box-name-input" />
+            <label for="box-7-input">Box 7</label>
+            <input id="box-7-input" type="text" maxlength="9" class="box-name-input" />
+            <label for="box-8-input">Box 8</label>
+            <input id="box-8-input" type="text" maxlength="9" class="box-name-input" />
+            <label for="box-9-input">Box 9</label>
+            <input id="box-9-input" type="text" maxlength="9" class="box-name-input" />
+            <label for="box-10-input">Box 10</label>
+            <input id="box-10-input" type="text" maxlength="9" class="box-name-input" />
+            <label for="box-11-input">Box 11</label>
+            <input id="box-11-input" type="text" maxlength="9" class="box-name-input" />
+            <label for="box-12-input">Box 12</label>
+            <input id="box-12-input" type="text" maxlength="9" class="box-name-input" />
+            <label for="box-13-input">Box 13</label>
+            <input id="box-13-input" type="text" maxlength="9" class="box-name-input" />
+            <label for="box-14-input">Box 14</label>
+            <input id="box-14-input" type="text" maxlength="9" class="box-name-input" />
         </div>
-        <div id="editor">
-            <div id="box-name-inputs">
-                <label for="box-1-input">Box 1:</label>
-                <input id="box-1-input" type="text" maxlength="9" class="box-name-input" />
-                <label for="box-2-input">Box 2:</label>
-                <input id="box-2-input" type="text" maxlength="9" class="box-name-input" />
-                <label for="box-3-input">Box 3:</label>
-                <input id="box-3-input" type="text" maxlength="9" class="box-name-input" />
-                <label for="box-4-input">Box 4:</label>
-                <input id="box-4-input" type="text" maxlength="9" class="box-name-input" />
-                <label for="box-5-input">Box 5:</label>
-                <input id="box-5-input" type="text" maxlength="9" class="box-name-input" />
-                <label for="box-6-input">Box 6:</label>
-                <input id="box-6-input" type="text" maxlength="9" class="box-name-input" />
-                <label for="box-7-input">Box 7:</label>
-                <input id="box-7-input" type="text" maxlength="9" class="box-name-input" />
-                <label for="box-8-input">Box 8:</label>
-                <input id="box-8-input" type="text" maxlength="9" class="box-name-input" />
-                <label for="box-9-input">Box 9:</label>
-                <input id="box-9-input" type="text" maxlength="9" class="box-name-input" />
-                <label for="box-10-input">Box 10:</label>
-                <input id="box-10-input" type="text" maxlength="9" class="box-name-input" />
-                <label for="box-11-input">Box 11:</label>
-                <input id="box-11-input" type="text" maxlength="9" class="box-name-input" />
-                <label for="box-12-input">Box 12:</label>
-                <input id="box-12-input" type="text" maxlength="9" class="box-name-input" />
-                <label for="box-13-input">Box 13:</label>
-                <input id="box-13-input" type="text" maxlength="9" class="box-name-input" />
-                <label for="box-14-input">Box 14:</label>
-                <input id="box-14-input" type="text" maxlength="9" class="box-name-input" />
+        <div class="tab-view">
+            <div class="tab">
+                <button class="tablinks" id="raw-view-tab" type="button">
+                    Raw
+                </button>
+                <button class="tablinks" id="uint-view-tab" type="button">
+                    uint
+                </button>
+                <button class="tablinks" id="code-gen-view-tab" type="button">
+                    CodeGenerator
+                </button>
+                <button class="tablinks" id="paste-view-tab" type="button">
+                    Paste
+                </button>
             </div>
-            <div class="tab-view">
-                <div class="tab">
-                    <button class="tablinks" id="raw-view-tab" type="button">
-                        Raw
-                    </button>
-                    <button class="tablinks" id="uint-view-tab" type="button">
-                        uint
-                    </button>
-                    <button class="tablinks" id="code-gen-view-tab" type="button">
-                        CodeGenerator
-                    </button>
-                    <button class="tablinks" id="paste-view-tab" type="button">
-                        Paste
-                    </button>
-                </div>
-                <div id="raw-view-tab-panel" class="tabcontent">
-                    <textarea id="box-name-byte-view" rows="14" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
-                </div>
-                <div id="uint-view-tab-panel" class="tabcontent">
-                    <textarea id="uint-view" rows="14" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" readonly></textarea>
-                    <div id="uint-view-params-panel">
-                        <label for="u16-radio">
-                            <input class="uint-view-params" id="u16-radio" name="size" type="radio" checked>
-                            u16
-                        </label>
-                        <label for="u32-radio">
-                            <input class="uint-view-params" id="u32-radio" name="size" type="radio">
-                            u32
-                        </label>
-                        <label for="little-endian-radio">
-                            <input class="uint-view-params" id="little-endian-radio" name="endianness" type="radio" checked>
-                            little-endian
-                        </label>
-                        <label for="big-endian-radio">
-                            <input class="uint-view-params" id="big-endian-radio" name="endianness" type="radio">
-                            big-endian
-                        </label>
-                    </div>
-                </div>
-                <div id="code-gen-view-tab-panel" class="tabcontent">
-                    <textarea id="code-gen-view" rows="14" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" readonly></textarea>
-                </div>
-                <div id="paste-view-tab-panel" class="tabcontent">
-                    <textarea id="paste-view" rows="18" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" readonly></textarea>
-                    <br>
-                    <label for="paste-charset-checkbox">
-                        <input id="paste-charset-checkbox" type="checkbox">
-                        Show unwritable characters
-                    </label>
+            <div id="raw-view-tab-panel" class="tabcontent">
+                <textarea id="box-name-byte-view" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
+            </div>
+            <div id="uint-view-tab-panel" class="tabcontent">
+                <textarea id="uint-view" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" readonly></textarea>
+                <div id="uint-view-params-panel">
+                    <fieldset>
+                        <legend>Size</legend>
+                        <input class="uint-view-params" id="u16-radio" name="size" type="radio" checked>
+                        <label for="u16-radio">u16</label>
+                        <input class="uint-view-params" id="u32-radio" name="size" type="radio">
+                        <label for="u32-radio">u32</label>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Endianness</legend>
+                        <input class="uint-view-params" id="little-endian-radio" name="endianness" type="radio" checked>
+                        <label for="little-endian-radio">little-endian</label>
+                        <input class="uint-view-params" id="big-endian-radio" name="endianness" type="radio">
+                        <label for="big-endian-radio">big-endian</label>
+                    </fieldset>
                 </div>
             </div>
+            <div id="code-gen-view-tab-panel" class="tabcontent">
+                <textarea id="code-gen-view" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" readonly></textarea>
+            </div>
+            <div id="paste-view-tab-panel" class="tabcontent">
+                <textarea id="paste-view" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" readonly></textarea>
+                <br>
+                <label for="paste-charset-checkbox">
+                    <input id="paste-charset-checkbox" type="checkbox">
+                    Show unwritable characters
+                </label>
+            </div>
         </div>
-    </main>
-    <footer>
-        <p>
-            <a href="https://github.com/it-is-final/rse-text-decoder">Source Code</a><br>
-            © final 2024-2025. rse-text-decoder is licensed under the terms of the MIT license, which can be found in <a href="https://github.com/it-is-final/rse-text-decoder/LICENSE">LICENSE</a>.
-        </p>
-    </footer>
-    <script src="index.js" ></script>
+    </div>
+</main>
+<footer>
+    <p>
+        <a href="https://github.com/it-is-final/rse-text-decoder">Source Code</a><br>
+        © final 2024-2025. rse-text-decoder is licensed under the terms of the MIT license, which can be found in <a href="https://github.com/it-is-final/rse-text-decoder/LICENSE">LICENSE</a>.
+    </p>
+</footer>
+<script src="index.js"></script>
 </body>
 </html>

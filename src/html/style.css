@@ -1,60 +1,50 @@
-@font-face {
-    font-family: "Cascadia Mono";
-    src: url("CascadiaMono-Regular.woff2");
-}
-
 body {
-    width: 40em;
-    margin: auto;
-}
-
-.box-name-input {
-    font-family: monospace;
-}
-
-label#box-name-byte-view-label {
-    display: none;
-}
-
-div#editor {
     display: flex;
+    flex-flow: column;
+    margin: 1em 1em;
     gap: 1em;
-}
-
-div#parameters-area {
-    display: grid;
-    gap: 0.25em;
-    grid-template-columns: auto auto;
-}
-
-div#box-name-inputs {
-    display: grid;
-    gap: 0.25em;
-    grid-template-columns: auto auto;
-}
-
-label#box-name-byte-view-label {
-    display: none;
-}
-
-textarea#box-name-byte-view:invalid, input.box-name-input:invalid {
-    border: 1px solid red;
-}
-
-textarea#box-name-byte-view:focus, input.box-name-input:focus {
-    outline: transparent;
-    border: 1px solid black;
-}
-
-textarea#box-name-byte-view:focus:invalid, input.box-name-input:focus:invalid {
-    outline: transparent;
-    border: 1px solid red;
 }
 
 main {
     display: flex;
-    flex-direction: column;
-    gap: 0.5em
+    flex-flow: column;
+    gap: 1em;
+}
+
+#parameters-area {
+    display: grid;
+    grid-template-columns: max-content auto;
+    row-gap: 0.25em;
+    column-gap: 1em;
+    max-width: 20em;
+}
+
+#parameters-area label::after {
+    content: ":";
+}
+
+#editor {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 1em;
+}
+
+#box-name-inputs {
+    display: grid;
+    grid-template-columns: max-content auto;
+    row-gap: 0.25em;
+    column-gap: 1em;
+    flex-grow: 1;
+}
+
+#box-name-inputs label::after {
+    content: ":";
+}
+
+.tab-view {
+    flex-grow: 1;
+    display: flex;
+    flex-flow: column;
 }
 
 .tab {
@@ -84,45 +74,34 @@ background-color: #ddd;
 background-color: #ccc;
 }
 
-/* Style the tab content */
 .tabcontent {
-display: none;
-padding: 6px 12px;
-border: 1px solid #ccc;
-border-top: none;
-}
-
-#uint-view-params-panel {
-    display: grid;
-    grid-template-columns: auto auto;
+    width: stretch;
+    width: -webkit-fill-available;
+    width: -moz-available;
+    flex-grow: 1;
+    flex-flow: column;
     gap: 0.25em;
 }
 
-#tab-view {
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: center;
+.tabcontent textarea {
+    width: stretch;
+    width: -webkit-fill-available;
+    width: -moz-available;
+    font-family:
+        ui-monospace,
+        SFMono-Regular,
+        Consolas,
+        'Liberation Mono',
+        Menlo,
+        monospace; /* 1 */
+    font-size: 1em; /* 2 */
+    flex-grow: 1;
+    height: 20em;
 }
 
-textarea {
-    font-size: 0.80em;
-    font-family: 'Cascadia Mono', monospace;
-}
-
-textarea#paste-view {
-    width: 50ch;
-    white-space: pre;
-}
-
-#box-name-byte-view, #uint-view, #code-gen-view {
-    width: 28ch;
-}
-
-.box-name-input {
-    width: 15ch;
-}
-
-.japanese-font {
-    font-size: 0.80em;
-    font-family: "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro",Osaka, "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+#uint-view-params-panel fieldset {
+    display: grid;
+    grid-template-columns: 1em max-content;
+    row-gap: 0.25em;
+    column-gap: 1em;
 }

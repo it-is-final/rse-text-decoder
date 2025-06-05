@@ -67,8 +67,8 @@ function formatStringNameForPaste(
     sName: string,
     language: GameLanguage
 ) {
-    const spaceChar = language === "JPN" ? "\u3000" : " ";
-    const spaceSub = "␣";
+    const spaceChar = language === "JPN" ? '\u3000' : ' ';
+    const spaceSub = language === "JPN" ? '＿' : '_';
     const sNameWide = Array.from(
         sName.replaceAll(spaceChar, spaceSub)
     ).join(" ");
@@ -181,7 +181,7 @@ function setActiveTab(tabButton: HTMLButtonElement, tabPanel: HTMLDivElement) {
         tab.classList.remove("active");
     }
     tabButton.classList.add("active");
-    tabPanel.style.display = "block";
+    tabPanel.style.display = "flex";
 }
 
 function setLanguageFont(language: GameLanguage) {
