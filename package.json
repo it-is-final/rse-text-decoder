@@ -4,7 +4,7 @@
   "description": "A tool to convert text characters into the corresponding codepoints in the character encoding of the generation III Pokemon games.",
   "main": "dist/index.js",
   "scripts": {
-    "start": "npm run build && npx serve dist/",
+    "start": "npx serve dist/",
     "build": "npx shx cp -r src/html/. dist/ && npx tsc -noEmit && esbuild src/index.ts --bundle --sourcemap --target=esnext --outfile=dist/index.js",
     "lint": "npx eslint src",
     "clean": "npx shx rm -r dist",
