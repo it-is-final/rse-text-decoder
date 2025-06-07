@@ -44,61 +44,78 @@ main {
     gap: 1em;
 }
 
+#box-name-inputs-container {
+    flex-grow: 1;
+}
+
 #box-name-inputs {
     display: grid;
     grid-template-columns: max-content auto;
     row-gap: 0.25em;
     column-gap: 1em;
-    flex-grow: 1;
 }
 
 #box-name-inputs label::after {
     content: ":";
 }
 
-.tab-view {
+#box-name-inputs > input {
+    font-family:
+        ui-monospace,
+        SFMono-Regular,
+        Consolas,
+        'Liberation Mono',
+        Menlo,
+        monospace,
+        monospace; /* 1 */
+    font-size: 1em; /* 2 */
+}
+
+.tabs-block {
     flex-grow: 1;
+    padding: 0.5em;
     display: flex;
-    flex-flow: column;
-}
-
-.tab {
+    flex-flow: column nowrap;
     overflow: hidden;
-    border: 1px solid #ccc;
-    background-color: #f1f1f1;
+    .tabs {
+        margin: -0.5em -0.5em 0.5em;
+        padding-left: 0;
+        list-style-type: none;
+        display: flex;
+        flex-flow: row nowrap;
+        border-bottom: 1px solid #e0e0e0;
+        > li > button {
+            background-color: inherit;
+            border: none;
+            padding: 0.5em;
+            color: grey;
+            font-weight: 600;
+            &:hover, &.active {
+                color: black;
+            }
+            &.active {
+                border-bottom: 2px solid black;
+            }
+        }
+    }
 }
 
-/* Style the buttons that are used to open the tab content */
-.tab button {
-    background-color: inherit;
-    float: left;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    padding: 0.25em 0.5em;
-    transition: 0.3s;
+.tab-content-container {
+    display: flex;
+    flex: 1 1 auto;
 }
 
-/* Change background color of buttons on hover */
-.tab button:hover {
-background-color: #ddd;
-}
-
-/* Create an active/current tablink class */
-.tab button.active {
-background-color: #ccc;
-}
-
-.tabcontent {
+.tab-content {
+    display: flex;
     width: stretch;
     width: -webkit-fill-available;
     width: -moz-available;
-    flex-grow: 1;
-    flex-flow: column;
+    flex: 1 1 auto;
+    flex-flow: column nowrap;
     gap: 0.25em;
 }
 
-.tabcontent textarea {
+.tab-content textarea {
     width: stretch;
     width: -webkit-fill-available;
     width: -moz-available;
@@ -108,10 +125,11 @@ background-color: #ccc;
         Consolas,
         'Liberation Mono',
         Menlo,
+        monospace,
         monospace; /* 1 */
     font-size: 1em; /* 2 */
-    flex-grow: 1;
-    height: 20em;
+    flex: 1 1 auto;
+    height: calc(14lh + 8px);
 }
 
 #uint-view-params-panel fieldset {
@@ -119,4 +137,5 @@ background-color: #ccc;
     grid-template-columns: 1em max-content;
     row-gap: 0.25em;
     column-gap: 1em;
+    flex: 1 0 auto;
 }

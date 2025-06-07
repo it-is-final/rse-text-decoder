@@ -167,23 +167,6 @@ function updateBoxNameInputs(version: GameVersion, language: GameLanguage) {
     }
 }
 
-function setActiveTab(tabButton: HTMLButtonElement, tabPanel: HTMLDivElement) {
-    const tabs = (
-        document.querySelectorAll<HTMLButtonElement>(".tablinks")
-    );
-    const tabcontents = (
-        document.querySelectorAll<HTMLDivElement>(".tabcontent")
-    );
-    for (const tabcontent of tabcontents) {
-        tabcontent.style.display = "none";
-    }
-    for (const tab of tabs) {
-        tab.classList.remove("active");
-    }
-    tabButton.classList.add("active");
-    tabPanel.style.display = "flex";
-}
-
 function setLanguageFont(language: GameLanguage) {
     for (const boxInput of boxNameInputs) {
         boxInput.classList.toggle("japanese-font", language === "JPN");
@@ -191,6 +174,16 @@ function setLanguageFont(language: GameLanguage) {
     }
     byteViews.pasteView.classList.toggle("japanese-font", language === "JPN");
     byteViews.pasteView.setAttribute("lang", language === "JPN" ? "ja" : "");
+}
+
+function hideTabs(tabBlock: HTMLDivElement) {
+    for (
+        const element of tabBlock.querySelectorAll(
+            ".tab-content-container > .tab-content:not(.active)"
+        ) as NodeListOf<HTMLDivElement>
+    ) {
+        element.style.display = "none";
+    }
 }
 
 byteViews.rawView.addEventListener("input", function() {
@@ -250,37 +243,30 @@ pasteViewCharControl.addEventListener("input", function () {
     updateByteViews();
 });
 
-document.querySelector<HTMLButtonElement>("#raw-view-tab")
-.addEventListener("click", function() {
-    setActiveTab(
-        this,
-        document.querySelector<HTMLDivElement>("#raw-view-tab-panel")
-    );
-});
-
-document.querySelector<HTMLButtonElement>("#uint-view-tab")
-.addEventListener("click", function() {
-    setActiveTab(
-        this,
-        document.querySelector<HTMLDivElement>("#uint-view-tab-panel")
-    );
-});
-
-document.querySelector<HTMLButtonElement>("#code-gen-view-tab")
-.addEventListener("click", function() {
-    setActiveTab(
-        this,
-        document.querySelector<HTMLDivElement>("#code-gen-view-tab-panel")
-    );
-});
-
-document.querySelector<HTMLButtonElement>("#paste-view-tab")
-.addEventListener("click", function() {
-    setActiveTab(
-        this,
-        document.querySelector<HTMLDivElement>("#paste-view-tab-panel")
-    );
-});
+for (
+    const tabBlock of document.querySelectorAll(".tabs-block") as
+    NodeListOf<HTMLDivElement>
+) {
+    hideTabs(tabBlock);
+    for (
+        const tabButton of tabBlock.querySelectorAll(".tabs button") as
+        NodeListOf<HTMLButtonElement>
+    ) {
+        tabButton.addEventListener("click", () => {
+            const targetTabbedBlock = tabBlock.querySelector(
+                `.tab-content-container > .tab-content[data-tab="${tabButton.dataset.tab}"`
+            ) as HTMLDivElement;
+            tabBlock.querySelector(".tabs button.active").classList.remove("active");
+            tabButton.classList.add("active");
+            tabBlock.querySelector(
+                ".tab-content-container > .tab-content.active"
+            ).classList.remove("active");
+            targetTabbedBlock.classList.add("active");
+            targetTabbedBlock.style.display = "flex";
+            hideTabs(tabBlock);
+        });
+    }
+}
 
 settingControls.languageSelect.addEventListener("input", () => {
     const language = getLangFromSelect();
@@ -299,8 +285,4 @@ document.addEventListener("DOMContentLoaded", function () {
     setLanguageFont(getLangFromSelect());
     updateBoxNameInputs(getVersionFromSelect(), getLangFromSelect());
     updateByteViews();
-    setActiveTab(
-        document.querySelector<HTMLButtonElement>("#raw-view-tab"),
-        document.querySelector<HTMLDivElement>("#raw-view-tab-panel"),
-    );
 });
