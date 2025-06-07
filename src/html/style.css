@@ -1,3 +1,18 @@
+@font-face {
+    font-family: "Pokemon RS";
+    src: url("fonts/pokemon-rs.otf.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Pokemon FRLG";
+    src: url("fonts/pokemon-frlg.otf.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Pokemon Emerald";
+    src: url("fonts/pokemon-emerald.otf.woff2") format("woff2");
+}
+
 body {
     display: flex;
     flex-flow: column;
