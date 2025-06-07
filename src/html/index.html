@@ -74,6 +74,7 @@
                 <div class="tab-content active" data-tab="1">
                     <textarea
                         id="box-name-byte-view"
+                        rows="14"
                         autocomplete="off"
                         autocorrect="off"
                         autocapitalize="off"
@@ -83,6 +84,7 @@
                 <div class="tab-content" data-tab="2">
                     <textarea
                         id="uint-view"
+                        rows="9"
                         autocomplete="off"
                         autocorrect="off"
                         autocapitalize="off"
@@ -131,6 +133,7 @@
                 <div class="tab-content" data-tab="3">
                     <textarea
                         id="code-gen-view"
+                        rows="9"
                         autocomplete="off"
                         autocorrect="off"
                         autocapitalize="off"
@@ -141,17 +144,17 @@
                 <div class="tab-content" data-tab="4">
                     <textarea
                         id="paste-view"
+                        rows="14"
                         autocomplete="off"
                         autocorrect="off"
                         autocapitalize="off"
                         spellcheck="false"
                         readonly
                     ></textarea>
-                    <br>
-                    <label for="paste-charset-checkbox">
+                    <div id="paste-view-params-panel">
                         <input id="paste-charset-checkbox" type="checkbox">
-                        Show unwritable characters
-                    </label>
+                        <label for="paste-charset-checkbox">Show unwritable characters</label>
+                    </div>
                 </div>
             </div>
         </div>

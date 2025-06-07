@@ -129,13 +129,28 @@ main {
         monospace; /* 1 */
     font-size: 1em; /* 2 */
     flex: 1 1 auto;
+    min-height: calc(9lh + 8px);
+}
+
+#box-name-byte-view,
+#paste-view {
     height: calc(14lh + 8px);
 }
 
-#uint-view-params-panel fieldset {
+#uint-view-params-panel {
+    flex: 0 0 auto;
+}
+
+#paste-view-params-panel {
+    flex: 0 0 auto;
+}
+
+#uint-view-params-panel fieldset,
+#paste-view-params-panel {
     display: grid;
     grid-template-columns: 1em max-content;
     row-gap: 0.25em;
     column-gap: 1em;
-    flex: 1 0 auto;
 }
+
+
