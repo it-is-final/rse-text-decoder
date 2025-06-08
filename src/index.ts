@@ -254,7 +254,7 @@ for (
     ) {
         tabButton.addEventListener("click", () => {
             const targetTabbedBlock = tabBlock.querySelector(
-                `.tab-content-container > .tab-content[data-tab="${tabButton.dataset.tab}"`
+                `.tab-content-container > .tab-content[data-tab="${tabButton.dataset.tab}"]`
             ) as HTMLDivElement;
             tabBlock.querySelector(".tabs button.active").classList.remove("active");
             tabButton.classList.add("active");
