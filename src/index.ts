@@ -82,6 +82,23 @@ Box ${index.toString().padStart(2, " ")}:\
 `;
 }
 
+function pullHexFromUrl(params: URLSearchParams) {
+    const dataString = params.get("data")?.toUpperCase();
+    if (
+        dataString === undefined
+        || dataString.length !== 252
+        || dataString.match(/[^0-9A-F]/g)
+    ) {
+        return;
+    }
+    const bytes = new Uint8Array(14 * 9);
+    for (let i = 0; i < dataString.length; i += 2) {
+        const x = parseInt(dataString.slice(i, i+2), 16);
+        bytes[Math.floor(i / 2)] = x;
+    }
+    boxNames.setNamesFromBytes(bytes);
+}
+
 function updateByteViews() {
     const b = boxNames.getDataAsStream();
     byteViews.rawView.value = boxNames.data.map(
@@ -281,7 +298,37 @@ settingControls.versionSelect.addEventListener("input", () => {
     updateByteViews();
 });
 
+document.querySelector<HTMLButtonElement>("#copy-permalink-button")
+    .addEventListener("click", function () {
+    const newUrl = new URL(document.URL);
+    const params = new URLSearchParams();
+    let dataString: string | string[] = [];
+    for (const b of boxNames.getDataAsStream()) {
+        dataString.push(b.toString(16).padStart(2, "0").toUpperCase());
+    }
+    dataString = dataString.join("");
+    params.set("lang", getLangFromSelect());
+    params.set("game", getVersionFromSelect());
+    params.set("data", dataString);
+    newUrl.search = params.toString();
+    navigator.clipboard.writeText(newUrl.toString());
+    this.textContent = "Copied!";
+    setTimeout(() => {
+        this.textContent = "Copy permalink";
+    }, 750);
+})
+
 document.addEventListener("DOMContentLoaded", function () {
+    const params = new URLSearchParams(document.location.search);
+    const urlLang = params.get("lang");
+    const urlGame = params.get("game");
+    pullHexFromUrl(params);
+    if (isGameLanguage(urlLang)) {
+        settingControls.languageSelect.value = urlLang;
+    }
+    if (isGameVersion(urlGame)) {
+        settingControls.versionSelect.value = urlGame;
+    }
     setLanguageFont(getLangFromSelect());
     updateBoxNameInputs(getVersionFromSelect(), getLangFromSelect());
     updateByteViews();

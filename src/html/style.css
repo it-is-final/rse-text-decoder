@@ -153,4 +153,8 @@ main {
     column-gap: 1em;
 }
 
+#copy-permalink-button {
+    grid-column: 1 / span 2;
+}
+
 
