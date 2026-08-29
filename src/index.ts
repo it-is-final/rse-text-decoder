@@ -1,6 +1,6 @@
 //! SPDX-License-Identifier: MIT
-/* 
- * © final 2025.
+/*
+ * © final 2025-2026.
  * rse-text-decoder is under the MIT License, read the LICENSE file
  * for more information.
  */
@@ -33,8 +33,11 @@ const uIntViewControls = {
     bigEndianRadio:
         document.querySelector<HTMLInputElement>("#big-endian-radio"),
 };
-const pasteViewCharControl =
-    document.querySelector<HTMLInputElement>("#paste-charset-checkbox");
+const pasteViewControls = {
+    tabsRadio: document.querySelector<HTMLInputElement>("#paste-view-tabs-radio"),
+    spacesRadio: document.querySelector<HTMLInputElement>("#paste-view-spaces-radio"),
+    charControl: document.querySelector<HTMLInputElement>("#paste-charset-checkbox"),
+};
 const boxNameInputs =
     document.querySelectorAll<HTMLInputElement>(".box-name-input");
 
@@ -65,7 +68,8 @@ function byteToHex(byte: number): string {
 function formatStringNameForPaste(
     index: number,
     sName: string,
-    language: GameLanguage
+    tabsSpaces: "tabs" | "spaces",
+    language: GameLanguage,
 ) {
     const spaceChar = language === "JPN" ? '\u3000' : ' ';
     const spaceSub = language === "JPN" ? '＿' : '_';
@@ -74,10 +78,10 @@ function formatStringNameForPaste(
     ).join(" ");
     return `\
 Box ${index.toString().padStart(2, " ")}:\
-\t${sNameWide}${
+${tabsSpaces === "tabs" ? "\t" : " "}${sNameWide}${
     (sName.length < 8 && sName.length > 0 ? " " : "") +
     Array<string>(sName.length < 8 ? 8 - sName.length : 0).fill(spaceChar).join(" ")
-}\t\
+}${tabsSpaces === "tabs" ? "\t" : " "}\
 [${sName}]\
 `;
 }
@@ -136,7 +140,7 @@ function updateByteViews() {
             if (endianness === "big") {
                 buffer.reverse();
             }
-            out.push(buffer.join(""));
+            out.push(buffer.join(endianness === "little" ? ' ' : ''));
         }
         return out.join("\n");
     })();
@@ -163,12 +167,13 @@ function updateByteViews() {
     byteViews.pasteView.value = boxNames.getStringNames(
         getVersionFromSelect(),
         getLangFromSelect(),
-        pasteViewCharControl.checked
+        pasteViewControls.charControl.checked
     ).map(
         (sName, i) =>
             formatStringNameForPaste(
                 i+1,
                 sName,
+                pasteViewControls.tabsRadio.checked ? "tabs" : "spaces",
                 getLangFromSelect()
             )
     ).join("\n");
@@ -256,7 +261,7 @@ for (
     uIntViewParam.addEventListener("input", () => updateByteViews());
 }
 
-pasteViewCharControl.addEventListener("input", function () {
+pasteViewControls.charControl.addEventListener("input", function () {
     updateByteViews();
 });
 
@@ -311,8 +316,8 @@ document.querySelector<HTMLButtonElement>("#copy-permalink-button")
     params.set("game", getVersionFromSelect());
     params.set("data", dataString);
     newUrl.search = params.toString();
-    navigator.clipboard.writeText(newUrl.toString());
-    this.textContent = "Copied!";
+    navigator.clipboard.writeText(newUrl.toString())
+        .then(() => { this.textContent = "Copied!"; }, () => { this.textContent = "Copy failed"; });
     setTimeout(() => {
         this.textContent = "Copy permalink";
     }, 750);

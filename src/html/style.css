@@ -146,7 +146,8 @@ main {
 }
 
 #uint-view-params-panel fieldset,
-#paste-view-params-panel {
+#paste-view-params-panel,
+#paste-view-params-panel fieldset {
     display: grid;
     grid-template-columns: 1em max-content;
     row-gap: 0.25em;
@@ -156,5 +157,3 @@ main {
 #copy-permalink-button {
     grid-column: 1 / span 2;
 }
-
-
